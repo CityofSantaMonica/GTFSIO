@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace GTFS
+namespace GTFSIO
 {
     public static class Extension
     {

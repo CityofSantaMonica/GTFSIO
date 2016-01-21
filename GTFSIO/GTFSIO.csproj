@@ -7,8 +7,8 @@
     <ProjectGuid>{8806A02B-8598-4B17-BFB7-DADF09DA7B18}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GTFS</RootNamespace>
-    <AssemblyName>GTFS</AssemblyName>
+    <RootNamespace>GTFSIO</RootNamespace>
+    <AssemblyName>GTFSIO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

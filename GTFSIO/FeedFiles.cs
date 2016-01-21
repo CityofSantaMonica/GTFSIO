@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
-namespace GTFS
+namespace GTFSIO
 {
     public class FeedFiles : Dictionary<String, Stream>
     {

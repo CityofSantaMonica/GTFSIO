@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GTFS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("GTFSIO")]
+[assembly: AssemblyDescription("Library for reading and writing GTFS data files")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard Company")]
-[assembly: AssemblyProduct("GTFS")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard Company 2015")]
+[assembly: AssemblyCompany("City of Santa Monica")]
+[assembly: AssemblyProduct("GTFSIO")]
+[assembly: AssemblyCopyright("Copyright © City of Santa Monica 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
