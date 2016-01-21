@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension.cs" />
-    <Compile Include="FeedFile.cs" />
     <Compile Include="FeedFiles.cs" />
     <Compile Include="GTFS.cs" />
     <Compile Include="FeedTables.Designer.cs">

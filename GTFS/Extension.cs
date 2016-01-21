@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.FileIO;
 
 namespace GTFS
 {
     public static class Extension
     {
-        public static void Load(String path)
-        {
-
-        }
         public static void ReadCSV(this System.Data.DataTable table, Stream stream, String Delimiters = ",")
         {
             var timespanExpression = new Regex("([0-9]+):([0-9]+):([0-9]+)");
