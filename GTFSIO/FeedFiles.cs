@@ -5,18 +5,18 @@ using System.IO.Compression;
 
 namespace GTFSIO
 {
-    public class FeedFiles : Dictionary<String, Stream>
+    public class FeedFiles : Dictionary<String, Stream>, IDisposable
     {
-        public ZipArchive Zip { get; set; }
-
         public FeedFiles() { }
 
         public FeedFiles(ZipArchive zipArchive)
         {
-            Zip = zipArchive;
-            foreach (var entry in zipArchive.Entries)
+            using (zipArchive)
             {
-                Add(entry.Name, entry.Open());
+                foreach (var entry in zipArchive.Entries)
+                {
+                    Add(entry.Name, entry.Open());
+                }
             }
         }
 
@@ -25,6 +25,14 @@ namespace GTFSIO
             foreach (var file in directory.GetFiles(pattern))
             {
                 Add(file.Name, file.Open(FileMode.Open));
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var stream in Values)
+            {
+                stream.Dispose();
             }
         }
     }

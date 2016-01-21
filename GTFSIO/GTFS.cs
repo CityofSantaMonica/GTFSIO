@@ -21,6 +21,7 @@ namespace GTFSIO
         {
             Path = path;
             FeedTables = new FeedTables();
+
             var feedFiles = new FeedFiles();
 
             if (File.Exists(path) && System.IO.Path.GetExtension(path).ToLower().Equals(".zip"))
@@ -41,8 +42,8 @@ namespace GTFSIO
                 if (feedTable != null)
                     feedTable.ReadCSV(feedFiles[tableName]);
             }
-            
-            feedFiles.Zip = null;
+
+            feedFiles.Dispose();
         }
 
         public String[] TableNamesOrderedByDependancy(String[] tableNames)
