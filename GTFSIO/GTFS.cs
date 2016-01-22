@@ -17,10 +17,9 @@ namespace GTFSIO
             FeedTables = new FeedTables();
         }
 
-        public GTFS(String path)
+        public GTFS(String path) : this()
         {
             Path = path;
-            FeedTables = new FeedTables();
 
             var feedFiles = new FeedFiles();
 
@@ -50,6 +49,7 @@ namespace GTFSIO
         {
             var workingNames = tableNames.ToList();
             var queueNames = new Queue<String>();
+
             while (workingNames.Count > 0)
             {
                 foreach (var workingName in workingNames)
@@ -71,6 +71,7 @@ namespace GTFSIO
                     }
                 }
             }
+
             return queueNames.ToArray();
         }
 
