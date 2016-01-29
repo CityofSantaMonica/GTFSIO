@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CSM.GTFSIO</id>
+    <version>$version$</version>
+    <title>CSM.GTFSIO</title>
+    <authors>City of Santa Monica</authors>
+    <owners>City of Santa Monica</owners>
+    <licenseUrl>https://bitbucket.org/CityofSantaMonica/gtfsio/src/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://bitbucket.org/CityofSantaMonica/gtfsio</projectUrl>
+    <iconUrl>https://avatars0.githubusercontent.com/u/5742493</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>GTFS</tags>
+  </metadata>
+</package>

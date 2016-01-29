@@ -7,17 +7,16 @@ namespace GTFSIO
 {
     public class FeedFiles : Dictionary<String, Stream>, IDisposable
     {
-        private readonly ZipArchive _zipArchive;
-
         public FeedFiles() { }
 
         public FeedFiles(ZipArchive zipArchive)
         {
-            _zipArchive = zipArchive;
-
-            foreach (var entry in zipArchive.Entries)
+            using (zipArchive)
             {
-                Add(entry.Name, entry.Open());
+                foreach (var entry in zipArchive.Entries)
+                {
+                    Add(entry.Name, entry.Open());
+                }
             }
         }
 
@@ -34,11 +33,6 @@ namespace GTFSIO
             foreach (var stream in Values)
             {
                 stream.Dispose();
-            }
-
-            if (_zipArchive != null)
-            {
-                _zipArchive.Dispose();
             }
         }
     }
