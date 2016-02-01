@@ -131,3 +131,8 @@ within Visual Studio.
 Find the *Test Explorer* under **Test > Windows > Test Explorer**:
 
 ![test-explorer](https://visualstudiogallery.msdn.microsoft.com/6ab922d0-21c0-4f06-ab5f-4ecd1fe7175d/image/file/66176/16/screenshot.png)
+
+## Nuget Packaging
+
+To build the Nuget package, select the `Nuget` build configuration and rebuild the solution.
+**Note** `nuget.exe` should be available on your `PATH`.
