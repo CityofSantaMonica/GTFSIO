@@ -124,7 +124,7 @@ gtfs.Save(".\new_data.zip");
 
 [`NUnit`](http://www.nunit.org/) is used for testing.
 
-To run the tests, download the [NUnit Test Adapter](https://visualstudiogallery.msdn.microsoft.com/6ab922d0-21c0-4f06-ab5f-4ecd1fe7175d)
+To run the tests, download the [NUnit Test Adapter](https://github.com/nunit/nunit3-vs-adapter/wiki)
 Visual Studio extension. This extension allows you to see and run all NUnit tests from
 within Visual Studio.
 
