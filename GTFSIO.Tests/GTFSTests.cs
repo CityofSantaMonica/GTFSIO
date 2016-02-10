@@ -85,9 +85,13 @@ namespace GTFSIO.Tests
 
             GTFS gtfs = new GTFS(_directory);
 
-            Assert.GreaterOrEqual(gtfs.FeedTables.Tables.Count, 2);
             Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"].Columns["field1"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"].Columns["field2"]);
+
             Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"].Columns["fieldA"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"].Columns["fieldB"]);
         }
     }
 }
