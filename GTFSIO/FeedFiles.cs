@@ -21,9 +21,9 @@ namespace GTFSIO
             }
         }
 
-        public FeedFiles(DirectoryInfo directory, String pattern = "*.txt")
+        public FeedFiles(DirectoryInfo directory)
         {
-            foreach (var file in directory.GetFiles(pattern))
+            foreach (var file in directory.GetFiles())
             {
                 Add(file.Name, file.Open(FileMode.Open));
             }

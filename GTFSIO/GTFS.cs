@@ -32,6 +32,14 @@ namespace GTFSIO
                 feedFiles = new FeedFiles(new DirectoryInfo(path));
             }
 
+            foreach (var tableName in feedFiles.Keys)
+            {
+                if (FeedTables.Tables[tableName] == null)
+                {
+                    FeedTables.Tables.Add(tableName);
+                }
+            }
+
             var orderedNames = TableNamesOrderedByDependency(feedFiles.Keys.ToArray());
             
             foreach (var tableName in orderedNames)

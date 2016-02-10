@@ -9,7 +9,7 @@ namespace GTFSIO.Tests
     [TestFixture]
     public class GTFSTests
     {
-        static readonly string _directory = "gtfs";
+        static readonly string _directory = @"c:\test\gtfs";
 
         [SetUp]
         public void SetUp()
@@ -86,8 +86,8 @@ namespace GTFSIO.Tests
             GTFS gtfs = new GTFS(_directory);
 
             Assert.GreaterOrEqual(gtfs.FeedTables.Tables.Count, 2);
-            Assert.NotNull(gtfs.FeedTables.Tables["test1_csv"]);
-            Assert.NotNull(gtfs.FeedTables.Tables["test2_txt"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"]);
         }
     }
 }
