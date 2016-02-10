@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 
 namespace GTFSIO.Tests
 {
@@ -13,6 +14,9 @@ namespace GTFSIO.Tests
         [SetUp]
         public void SetUp()
         {
+            if (Directory.Exists(_directory))
+                Directory.Delete(_directory, true);
+
             var di = Directory.CreateDirectory(_directory);
             Console.WriteLine(di.FullName);
         }
@@ -69,6 +73,21 @@ namespace GTFSIO.Tests
             Assert.DoesNotThrow(() => gtfs = new GTFS(nonsense));
             Assert.NotNull(gtfs);
             Assert.NotNull(gtfs.FeedTables);
+        }
+
+        [Test]
+        public void New_ReadsDirectory_IntoFeedTables()
+        {
+            var di = new DirectoryInfo(_directory);
+
+            File.WriteAllText(Path.Combine(di.FullName, "test1.csv"), "field1,field2");
+            File.WriteAllText(Path.Combine(di.FullName, "test2.txt"), "fieldA,fieldB");
+
+            GTFS gtfs = new GTFS(_directory);
+
+            Assert.GreaterOrEqual(gtfs.FeedTables.Tables.Count, 2);
+            Assert.NotNull(gtfs.FeedTables.Tables["test1_csv"]);
+            Assert.NotNull(gtfs.FeedTables.Tables["test2_txt"]);
         }
     }
 }
