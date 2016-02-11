@@ -76,22 +76,34 @@ namespace GTFSIO.Tests
         }
 
         [Test]
-        public void New_ReadsDirectory_IntoFeedTables()
+        public void New_PopulatesFeedTables_FromDirectoryOfFiles()
         {
             var di = new DirectoryInfo(_directory);
 
-            File.WriteAllText(Path.Combine(di.FullName, "test1.csv"), "field1,field2");
-            File.WriteAllText(Path.Combine(di.FullName, "test2.txt"), "fieldA,fieldB");
+            var data = String.Format("{{0}}{0}{{1}}", Environment.NewLine);
+
+            File.WriteAllText(Path.Combine(di.FullName, "test1.csv"), String.Format(data, "field1,field2", "value1,value2"));
+            File.WriteAllText(Path.Combine(di.FullName, "test2.txt"), String.Format(data, "fieldA,fieldB", "valueA,valueB"));
 
             GTFS gtfs = new GTFS(_directory);
 
-            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"]);
-            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"].Columns["field1"]);
-            Assert.NotNull(gtfs.FeedTables.Tables["test1.csv"].Columns["field2"]);
+            var table = gtfs.FeedTables.Tables["test1.csv"];
+            Assert.NotNull(table);
+            Assert.NotNull(table.Columns["field1"]);
+            Assert.NotNull(table.Columns["field2"]);
+            Assert.AreEqual(1, table.Rows.Count);
+            Assert.AreEqual("value1", table.Rows[0]["field1"]);
+            Assert.AreEqual("value2", table.Rows[0]["field2"]);
 
-            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"]);
-            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"].Columns["fieldA"]);
-            Assert.NotNull(gtfs.FeedTables.Tables["test2.txt"].Columns["fieldB"]);
+            table = null;
+
+            table = gtfs.FeedTables.Tables["test2.txt"];
+            Assert.NotNull(table);
+            Assert.NotNull(table.Columns["fieldA"]);
+            Assert.NotNull(table.Columns["fieldB"]);
+            Assert.AreEqual(1, table.Rows.Count);
+            Assert.AreEqual("valueA", table.Rows[0]["fieldA"]);
+            Assert.AreEqual("valueB", table.Rows[0]["fieldB"]);
         }
     }
 }
