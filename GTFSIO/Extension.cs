@@ -25,11 +25,7 @@ namespace GTFSIO
             textFieldParser.SetDelimiters(Delimiters);
             textFieldParser.HasFieldsEnclosedInQuotes = true;
             var fieldReferences = textFieldParser.ReadFields();
-            foreach(var fieldReference in fieldReferences)
-            {
-                if (!table.Columns.OfType<DataColumn>().Any(item => item.ColumnName.ToLower().Equals(fieldReference.ToLower())))
-                    table.Columns.Add(fieldReference);
-            }
+
             while (!textFieldParser.EndOfData)
             {
                 var fields = textFieldParser.ReadFields();

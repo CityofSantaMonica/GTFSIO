@@ -9,6 +9,7 @@ namespace GTFSIO
 {
     public class GTFS
     {
+        private String GTFSSchemaName { get { return "gtfs.xsd"; } }
         public FeedTables FeedTables { get; set; }
         public String Path { get; set; }
 
@@ -32,12 +33,11 @@ namespace GTFSIO
                 feedFiles = new FeedFiles(new DirectoryInfo(path));
             }
 
-            foreach (var tableName in feedFiles.Keys)
+            if (feedFiles.Keys.Contains(GTFSSchemaName))
             {
-                if (FeedTables.Tables[tableName] == null)
-                {
-                    FeedTables.Tables.Add(tableName);
-                }
+                var tempDataSet = new System.Data.DataSet();
+                tempDataSet.ReadXmlSchema(feedFiles[GTFSSchemaName]);
+                FeedTables.Merge(tempDataSet);
             }
 
             var orderedNames = TableNamesOrderedByDependency(feedFiles.Keys.ToArray());
@@ -85,6 +85,7 @@ namespace GTFSIO
 
         public void Save(String path)
         {
+            var saveSchema = !FeedTables.Tables.Cast<DataTable>().All(item => item.ExtendedProperties.ContainsKey("Generator_UserTableName"));
             if (path.ToLower().EndsWith(".zip"))
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
@@ -97,6 +98,17 @@ namespace GTFSIO
                             using (var streamWriter = new StreamWriter(entryStream))
                             {
                                 table.WriteCSV(streamWriter);
+                            }
+                        }
+                    }
+                    if (saveSchema)
+                    {
+                        var entry = archive.CreateEntry(GTFSSchemaName);
+                        using (var entryStream = entry.Open())
+                        {
+                            using (var streamWriter = new StreamWriter(entryStream))
+                            {
+                                FeedTables.WriteXmlSchema(streamWriter);
                             }
                         }
                     }
@@ -115,6 +127,13 @@ namespace GTFSIO
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
                             table.WriteCSV(streamWriter);
+                        }
+                    }
+                    if (saveSchema)
+                    {
+                        using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, GTFSSchemaName)))
+                        {
+                            FeedTables.WriteXmlSchema(streamWriter);
                         }
                     }
                 }
