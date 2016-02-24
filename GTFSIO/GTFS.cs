@@ -9,7 +9,7 @@ namespace GTFSIO
 {
     public class GTFS
     {
-        private String GTFSSchemaName { get { return "gtfs.xsd"; } }
+        public static String GTFSOptionalSchemaName { get { return "gtfs.xsd"; } }
         public FeedTables FeedTables { get; set; }
         public String Path { get; set; }
 
@@ -33,10 +33,10 @@ namespace GTFSIO
                 feedFiles = new FeedFiles(new DirectoryInfo(path));
             }
 
-            if (feedFiles.Keys.Contains(GTFSSchemaName))
+            if (feedFiles.Keys.Contains(GTFSOptionalSchemaName))
             {
                 var tempDataSet = new System.Data.DataSet();
-                tempDataSet.ReadXmlSchema(feedFiles[GTFSSchemaName]);
+                tempDataSet.ReadXmlSchema(feedFiles[GTFSOptionalSchemaName]);
                 FeedTables.Merge(tempDataSet);
             }
 
@@ -103,7 +103,7 @@ namespace GTFSIO
                     }
                     if (saveSchema)
                     {
-                        var entry = archive.CreateEntry(GTFSSchemaName);
+                        var entry = archive.CreateEntry(GTFSOptionalSchemaName);
                         using (var entryStream = entry.Open())
                         {
                             using (var streamWriter = new StreamWriter(entryStream))
@@ -131,7 +131,7 @@ namespace GTFSIO
                     }
                     if (saveSchema)
                     {
-                        using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, GTFSSchemaName)))
+                        using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, GTFSOptionalSchemaName)))
                         {
                             FeedTables.WriteXmlSchema(streamWriter);
                         }
