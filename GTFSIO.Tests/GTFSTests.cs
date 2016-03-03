@@ -1,64 +1,20 @@
 ﻿using NUnit.Framework;
 using System;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
 
 namespace GTFSIO.Tests
 {
     [TestFixture]
     public class GTFSTests
     {
-        static readonly string _directory = @"c:\test\gtfs";
-
-        [SetUp]
-        public void SetUp()
-        {
-            if (Directory.Exists(_directory))
-                Directory.Delete(_directory, true);
-
-            var di = Directory.CreateDirectory(_directory);
-            Console.WriteLine(di.FullName);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Directory.Delete(_directory, true);
-            Assert.False(Directory.Exists(_directory));
-        }
+        //the directory where this project lives
+        static readonly string _baseDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
         [Test]
+        [Category("Read")]
         public void New_Initializes_FeedTables()
         {
             var gtfs = new GTFS();
-            Assert.NotNull(gtfs.FeedTables);
-        }
-
-        [Test]
-        public void New_Constructs_FromLocalDirectory()
-        {
-            var di = new DirectoryInfo(_directory);
-
-            GTFS gtfs = null;
-
-            Assert.DoesNotThrow(() => gtfs = new GTFS(di.FullName));
-            Assert.NotNull(gtfs);
-            Assert.NotNull(gtfs.FeedTables);
-        }
-
-        [Test]
-        public void New_Constructs_FromLocalZip()
-        {
-            var di = new DirectoryInfo(_directory);
-            var fi = new FileInfo(Path.Combine(di.FullName, "data.zip"));
-
-            using (var za = new ZipArchive(File.OpenWrite(fi.FullName), ZipArchiveMode.Create)) { }
-
-            GTFS gtfs = null;
-
-            Assert.DoesNotThrow(() => gtfs = new GTFS(fi.FullName));
-            Assert.NotNull(gtfs);
             Assert.NotNull(gtfs.FeedTables);
         }
 
@@ -66,6 +22,7 @@ namespace GTFSIO.Tests
         [TestCase("bla bla 1-2/3?4")]
         [TestCase("C:\nope")]
         [TestCase("C:\nope\not\there.zip")]
+        [Category("Read")]
         public void New_Constructs_WithNonsense(string nonsense)
         {
             GTFS gtfs = null;
@@ -76,18 +33,64 @@ namespace GTFSIO.Tests
         }
 
         [Test]
-        public void New_PopulatesFeedTables_FromDirectoryOfFiles()
+        [Category("Read")]
+        public void New_PopulatesFeedTables_FromDirectoryOfGTFSFiles()
         {
-            var di = new DirectoryInfo(_directory);
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "GTFS"));
 
-            var data = String.Format("{{0}}{0}{{1}}", Environment.NewLine);
+            GTFS gtfs = new GTFS(di.FullName);
 
-            File.WriteAllText(Path.Combine(di.FullName, "test1.csv"), String.Format(data, "field1,field2", "value1,value2"));
-            File.WriteAllText(Path.Combine(di.FullName, "test2.txt"), String.Format(data, "fieldA,fieldB", "valueA,valueB"));
-            File.WriteAllText(Path.Combine(di.FullName, GTFS.GTFSOptionalSchemaName), "<?xml version='1.0' encoding='utf-8'?><xs:schema targetNamespace='http://tempuri.org/XMLSchema.xsd' elementFormDefault='qualified' xmlns='http://tempuri.org/XMLSchema.xsd' xmlns:mstns='http://tempuri.org/XMLSchema.xsd' xmlns:xs='http://www.w3.org/2001/XMLSchema' ><xs:element name='test1.csv'><xs:complexType><xs:sequence><xs:element name='field1' type='xs:string'/><xs:element name='field2' type='xs:string'/></xs:sequence></xs:complexType></xs:element><xs:element name='test2.txt'><xs:complexType><xs:sequence><xs:element name='fieldA' type='xs:string'/><xs:element name='fieldB' type='xs:string'/></xs:sequence></xs:complexType></xs:element></xs:schema>");
+            Assert.NotNull(gtfs);
+            Assert.NotNull(gtfs.FeedTables);
+            AssertGTFSData(gtfs);
+        }
 
-            GTFS gtfs = new GTFS(_directory);
+        [Test]
+        [Category("Read")]
+        public void New_PopulatesFeedTables_FromZipOfGTFSFiles()
+        {
+            var fi = new FileInfo(Path.Combine(_baseDirectory, "GTFS.zip"));
 
+            GTFS gtfs = new GTFS(fi.FullName);
+
+            Assert.NotNull(gtfs);
+            Assert.NotNull(gtfs.FeedTables);
+            AssertGTFSData(gtfs);
+        }
+
+        //Asserts the existence of data found in Data/GTFS/ and Data/GTFS.zip
+        private void AssertGTFSData(GTFS gtfs)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        [Category("Read")]
+        public void New_PopulatesFeedTables_FromDirectoryOfCustomFiles()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Custom"));
+
+            GTFS gtfs = new GTFS(di.FullName);
+
+            Assert.NotNull(gtfs);
+            Assert.NotNull(gtfs.FeedTables);
+            AssertCustomData(gtfs);
+        }
+
+        [Test]
+        [Category("Read")]
+        public void New_PopulatesFeedTables_FromZipOfCustomFiles()
+        {
+            var fi = new FileInfo(Path.Combine(_baseDirectory, "Custom.zip"));
+
+            GTFS gtfs = new GTFS(fi.FullName);
+
+            AssertCustomData(gtfs);
+        }
+
+        //Asserts the existence of data found in Data/Custom/ and Data/Custom.zip
+        private void AssertCustomData(GTFS gtfs)
+        {
             var table = gtfs.FeedTables.Tables["test1.csv"];
             Assert.NotNull(table);
             Assert.NotNull(table.Columns["field1"]);
@@ -108,9 +111,10 @@ namespace GTFSIO.Tests
         }
 
         [Test]
-        public void New_PopulatesFeedTables_SaveXSD()
+        [Category("Write")]
+        public void Save_WithCustomTables_WritesXsd()
         {
-            var di = new DirectoryInfo(_directory);
+            var di = new DirectoryInfo(_baseDirectory);
 
             var data = String.Format("{{0}}{0}{{1}}", Environment.NewLine);
 
@@ -128,10 +132,10 @@ namespace GTFSIO.Tests
             newTable2.Rows.Add("valueA", "valueB");
             firstGtfs.FeedTables.Tables.Add(newTable2);
 
-            firstGtfs.Save(_directory);
+            firstGtfs.Save(_baseDirectory);
 
             System.Data.DataSet newDataSet = new System.Data.DataSet();
-            newDataSet.ReadXmlSchema(Path.Combine(_directory, GTFS.GTFSOptionalSchemaName));
+            newDataSet.ReadXmlSchema(Path.Combine(_baseDirectory, GTFS.GTFSOptionalSchemaName));
             var table = newDataSet.Tables["test1.csv"];
             Assert.NotNull(table);
             Assert.NotNull(table.Columns["field1"]);
@@ -147,9 +151,11 @@ namespace GTFSIO.Tests
         }
 
         [Test]
+        [Category("Read")]
+        [Category("Write")]
         public void New_PopulatesFeedTables_RoundTrip()
         {
-            var di = new DirectoryInfo(_directory);
+            var di = new DirectoryInfo(_baseDirectory);
 
             var data = String.Format("{{0}}{0}{{1}}", Environment.NewLine);
 
@@ -167,9 +173,9 @@ namespace GTFSIO.Tests
             newTable2.Rows.Add("valueA", "valueB");
             firstGtfs.FeedTables.Tables.Add(newTable2);
 
-            firstGtfs.Save(_directory);
+            firstGtfs.Save(_baseDirectory);
 
-            GTFS secondGtfs = new GTFS(_directory);
+            GTFS secondGtfs = new GTFS(_baseDirectory);
 
             var table = secondGtfs.FeedTables.Tables["test1.csv"];
             Assert.NotNull(table);
