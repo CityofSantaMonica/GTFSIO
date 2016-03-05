@@ -45,8 +45,8 @@ namespace GTFSIO.Tests
             Assert.NotNull(gtfs);
             Assert.NotNull(gtfs.FeedTables);
 
-            var table1 = gtfs.FeedTables.Tables["test1.csv"];
-            var table2 = gtfs.FeedTables.Tables["test2.txt"];
+            var table1 = gtfs["test1.csv"];
+            var table2 = gtfs["test2.txt"];
 
             AssertCustomTables(table1, table2, schemaOnly: false);
         }
@@ -76,8 +76,8 @@ namespace GTFSIO.Tests
             Assert.NotNull(gtfs);
             Assert.NotNull(gtfs.FeedTables);
 
-            var table1 = gtfs.FeedTables.Tables["test1.csv"];
-            var table2 = gtfs.FeedTables.Tables["test2.txt"];
+            var table1 = gtfs["test1.csv"];
+            var table2 = gtfs["test2.txt"];
 
             AssertCustomTables(table1, table2, schemaOnly: false);
         }
@@ -109,7 +109,7 @@ namespace GTFSIO.Tests
                 gtfs.Save(di.FullName);
 
                 //assert that the XSD was written
-                string xsdPath = Path.Combine(di.FullName, GTFS.GTFSOptionalSchemaName);
+                string xsdPath = Path.Combine(di.FullName, GTFS.OptionalSchemaName);
                 Assert.True(File.Exists(xsdPath));
 
                 //and validate the expected table structure
@@ -144,8 +144,8 @@ namespace GTFSIO.Tests
                 var secondGtfs = new GTFS(di.FullName);
 
                 //and validate the expected table structure
-                var table1 = secondGtfs.FeedTables.Tables["test1.csv"];
-                var table2 = secondGtfs.FeedTables.Tables["test2.txt"];
+                var table1 = secondGtfs["test1.csv"];
+                var table2 = secondGtfs["test2.txt"];
 
                 AssertCustomTables(table1, table2, schemaOnly: false);
             }
@@ -217,7 +217,7 @@ namespace GTFSIO.Tests
 
         private void AssertAgency(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._agency_txt;
+            var table = gtfs.Agency;
 
             Assert.NotNull(table);
             Assert.AreEqual(1, table.Count);
@@ -237,7 +237,7 @@ namespace GTFSIO.Tests
 
         private void AssertCalendar(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._calendar_txt;
+            var table = gtfs.Calendar;
 
             Assert.NotNull(table);
             Assert.AreEqual(3, table.Count);
@@ -266,7 +266,7 @@ namespace GTFSIO.Tests
 
         private void AssertCalendarDates(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._calendar_dates_txt;
+            var table = gtfs.CalendarDates;
 
             Assert.NotNull(table);
             Assert.AreEqual(3, table.Count);
@@ -274,7 +274,7 @@ namespace GTFSIO.Tests
 
         private void AssertFareAttributes(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._fare_attributes_txt;
+            var table = gtfs.FareAttributes;
 
             Assert.NotNull(table);
             Assert.AreEqual(1, table.Count);
@@ -288,7 +288,7 @@ namespace GTFSIO.Tests
 
         private void AssertFareRules(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._fare_rules_txt;
+            var table = gtfs.FareRules;
 
             Assert.NotNull(table);
             Assert.AreEqual(3, table.Count);
@@ -301,7 +301,7 @@ namespace GTFSIO.Tests
 
         private void AssertFeedInfo(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._feed_info_txt;
+            var table = gtfs.FeedInfo;
 
             Assert.NotNull(table);
             Assert.AreEqual(1, table.Count);
@@ -315,7 +315,7 @@ namespace GTFSIO.Tests
 
         private void AssertRoutes(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._routes_txt;
+            var table = gtfs.Routes;
 
             Assert.NotNull(table);
             Assert.AreEqual(3, table.Count);
@@ -337,7 +337,7 @@ namespace GTFSIO.Tests
 
         private void AssertShapes(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._shapes_txt;
+            var table = gtfs.Shapes;
 
             Assert.NotNull(table);
             Assert.Greater(table.Count, 1);
@@ -353,7 +353,7 @@ namespace GTFSIO.Tests
 
         private void AssertStops(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._stops_txt;
+            var table = gtfs.Stops;
 
             Assert.NotNull(table);
             Assert.Greater(table.Count, 1);
@@ -374,7 +374,7 @@ namespace GTFSIO.Tests
 
         private void AssertStopTimes(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._stop_times_txt;
+            var table = gtfs.StopTimes;
 
             Assert.NotNull(table);
             Assert.Greater(table.Count, 1);
@@ -397,7 +397,7 @@ namespace GTFSIO.Tests
 
         private void AssertTrips(GTFS gtfs)
         {
-            var table = gtfs.FeedTables._trips_txt;
+            var table = gtfs.Trips;
 
             Assert.NotNull(table);
             Assert.AreEqual(knownTrips.Length, table.Count);

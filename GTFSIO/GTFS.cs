@@ -12,9 +12,76 @@ namespace GTFSIO
     /// </summary>
     public class GTFS
     {
-        public static String GTFSOptionalSchemaName { get { return "gtfs.xsd"; } }
+        public static String OptionalSchemaName { get { return "gtfs.xsd"; } }
         public FeedTables FeedTables { get; set; }
         public String Path { get; set; }
+
+        public FeedTables._agency_txtDataTable Agency
+        {
+            get { return FeedTables._agency_txt; }
+        }
+        public FeedTables._calendar_txtDataTable Calendar
+        {
+            get { return FeedTables._calendar_txt; }
+        }
+        public FeedTables._calendar_dates_txtDataTable CalendarDates
+        {
+            get { return FeedTables._calendar_dates_txt; }
+        }
+        public FeedTables._fare_attributes_txtDataTable FareAttributes
+        {
+            get { return FeedTables._fare_attributes_txt; }
+        }
+        public FeedTables._fare_rules_txtDataTable FareRules
+        {
+            get { return FeedTables._fare_rules_txt; }
+        }
+        public FeedTables._feed_info_txtDataTable FeedInfo
+        {
+            get { return FeedTables._feed_info_txt; }
+        }
+        public FeedTables._frequencies_txtDataTable Frequencies
+        {
+            get { return FeedTables._frequencies_txt; }
+        }
+        public FeedTables._routes_txtDataTable Routes
+        {
+            get { return FeedTables._routes_txt; }
+        }
+        public FeedTables._shapes_txtDataTable Shapes
+        {
+            get { return FeedTables._shapes_txt; }
+        }
+        public FeedTables._stops_txtDataTable Stops
+        {
+            get { return FeedTables._stops_txt; }
+        }
+        public FeedTables._stop_times_txtDataTable StopTimes
+        {
+            get { return FeedTables._stop_times_txt; }
+        }
+        public FeedTables._transfers_txtDataTable Transfers
+        {
+            get { return FeedTables._transfers_txt; }
+        }
+        public FeedTables._trips_txtDataTable Trips
+        {
+            get { return FeedTables._trips_txt; }
+        }
+
+        public DataTable this[int index]
+        {
+            get { return FeedTables.Tables[index]; }
+        }
+        public DataTable this[string index]
+        {
+            get { return FeedTables.Tables[index]; }
+        }
+
+        public IEnumerable<DataTable> DataTables
+        {
+            get { return FeedTables.Tables.OfType<DataTable>(); }
+        }
 
         public GTFS()
         {
@@ -42,10 +109,10 @@ namespace GTFSIO
 
             //if a schema file was provided
             //merge it with the standard FeedTables schema
-            if (feedFiles.Keys.Contains(GTFSOptionalSchemaName))
+            if (feedFiles.Keys.Contains(OptionalSchemaName))
             {
-                var tempDataSet = new System.Data.DataSet();
-                tempDataSet.ReadXmlSchema(feedFiles[GTFSOptionalSchemaName]);
+                var tempDataSet = new DataSet();
+                tempDataSet.ReadXmlSchema(feedFiles[OptionalSchemaName]);
                 FeedTables.Merge(tempDataSet);
             }
 
@@ -57,7 +124,7 @@ namespace GTFSIO
             {
                 Console.WriteLine("Reading table {0}", tableName);
 
-                var feedTable = FeedTables.Tables[tableName];
+                var feedTable = this[tableName];
 
                 if (feedTable != null)
                     feedTable.ReadCSV(feedFiles[tableName]);
@@ -76,7 +143,7 @@ namespace GTFSIO
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
                 {
-                    foreach (var table in FeedTables.Tables.OfType<DataTable>().Where(item => item.Rows.Count > 0))
+                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0))
                     {
                         var entry = archive.CreateEntry(table.TableName);
                         using (var entryStream = entry.Open())
@@ -89,7 +156,7 @@ namespace GTFSIO
                     }
                     if (ShouldCreateSchema())
                     {
-                        var entry = archive.CreateEntry(GTFSOptionalSchemaName);
+                        var entry = archive.CreateEntry(OptionalSchemaName);
                         using (var entryStream = entry.Open())
                         {
                             using (var streamWriter = new StreamWriter(entryStream))
@@ -108,7 +175,7 @@ namespace GTFSIO
                 }
                 if (Directory.Exists(path))
                 {
-                    foreach (var table in FeedTables.Tables.OfType<DataTable>().Where(item => item.Rows.Count > 0))
+                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0))
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
@@ -117,7 +184,7 @@ namespace GTFSIO
                     }
                     if (ShouldCreateSchema())
                     {
-                        using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, GTFSOptionalSchemaName)))
+                        using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, OptionalSchemaName)))
                         {
                             FeedTables.WriteXmlSchema(streamWriter);
                         }
@@ -136,7 +203,7 @@ namespace GTFSIO
             {
                 foreach (var workingName in workingNames)
                 {
-                    var feedTable = FeedTables.Tables[workingName];
+                    var feedTable = this[workingName];
                     if (feedTable != null)
                     {
                         //if this table has no relations to other tables
@@ -170,7 +237,7 @@ namespace GTFSIO
         //determine, based on the current state of the FeedTables, if a schema file should be written
         private bool ShouldCreateSchema()
         {
-            return !FeedTables.Tables.Cast<DataTable>().All(item => item.ExtendedProperties.ContainsKey(UserGeneratedTableKey));
+            return !DataTables.All(item => item.ExtendedProperties.ContainsKey(UserGeneratedTableKey));
         }
     }
 }
