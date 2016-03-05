@@ -134,6 +134,15 @@ namespace GTFSIO
         }
 
         /// <summary>
+        /// Add a <see cref="DataTable"/> to this object's collection.
+        /// </summary>
+        /// <param name="table">The <see cref="DataTable"/> to add.</param>
+        public void Add(DataTable table)
+        {
+            FeedTables.Tables.Add(table);
+        }
+
+        /// <summary>
         /// Write the current state of <see cref="FeedTables"/> to the given path.
         /// </summary>
         /// <param name="path">The full path to a .zip file or writeable directory.</param>

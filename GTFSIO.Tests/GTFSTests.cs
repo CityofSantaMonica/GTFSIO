@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 namespace GTFSIO.Tests
 {
@@ -130,7 +131,7 @@ namespace GTFSIO.Tests
         [Test]
         [Category("Read")]
         [Category("Write")]
-        public void GTFS_Can_RoundTrip()
+        public void GTFS_CanRoundTrip_CustomTables()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
 
@@ -168,8 +169,8 @@ namespace GTFSIO.Tests
             table2.Rows.Add("valueA", "valueB");
 
             var gtfs = new GTFS();
-            gtfs.FeedTables.Tables.Add(table1);
-            gtfs.FeedTables.Tables.Add(table2);
+            gtfs.Add(table1);
+            gtfs.Add(table2);
 
             return gtfs;
         }
@@ -200,7 +201,7 @@ namespace GTFSIO.Tests
         //Asserts the existence of (GTFS spec) data found in Data/GTFS/ and Data/GTFS.zip
         private void AssertSpecGTFS(GTFS gtfs)
         {
-            Assert.AreEqual(13, gtfs.FeedTables.Tables.Count);
+            Assert.AreEqual(13, gtfs.DataTables.Count());
 
             AssertAgency(gtfs);
             AssertCalendar(gtfs);
