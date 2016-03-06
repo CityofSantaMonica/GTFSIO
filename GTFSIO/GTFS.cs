@@ -242,12 +242,12 @@ namespace GTFSIO
 
         //tables in FeedTables with structure defined in FeedTables.xsd
         //will have a property with the following key
-        private static readonly String UserGeneratedTableKey = "Generator_UserTableName";
+        private static readonly String GeneratedTableKey = "Generator_UserTableName";
 
         //determine, based on the current state of the FeedTables, if a schema file should be written
         private bool ShouldCreateSchema()
         {
-            return !DataTables.All(item => item.ExtendedProperties.ContainsKey(UserGeneratedTableKey));
+            return !DataTables.All(item => item.ExtendedProperties.ContainsKey(GeneratedTableKey));
         }
     }
 }
