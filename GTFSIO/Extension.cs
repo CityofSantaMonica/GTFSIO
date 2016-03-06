@@ -4,22 +4,29 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace GTFSIO
 {
     public static class Extension
     {
+        static Dictionary<Type, Delegate> ParseDictionary
+        {
+            get
+            {
+                return new Dictionary<Type, Delegate>()
+                {
+                    { typeof(Boolean), new Func<String, Boolean>(fieldValue => Convert.ToBoolean(Int32.Parse(fieldValue))) },
+                    { typeof(DateTime), new Func<String, DateTime>(fieldValue => new DateTime(Int32.Parse(fieldValue.Substring(0, 4)), Int32.Parse(fieldValue.Substring(4, 2)), Int32.Parse(fieldValue.Substring(6, 2)))) },
+                    { typeof(Decimal), new Func<String, Decimal>(fieldValue => Decimal.Parse(fieldValue)) },
+                    { typeof(Double), new Func<String, Decimal>(fieldValue => Decimal.Parse(fieldValue)) },
+                    { typeof(Int32), new Func<String, Int32>(fieldValue => Int32.Parse(fieldValue)) },
+                    { typeof(TimeSpan), new Func<String, Object>(fieldValue => { try { var timeSpanPart = fieldValue.Split(':'); return new TimeSpan(Int32.Parse(timeSpanPart[0]), Int32.Parse(timeSpanPart[1]), Int32.Parse(timeSpanPart[2])); } catch { return DBNull.Value; }}) },
+                };
+            }
+        }
+
         public static void ReadCSV(this DataTable table, Stream stream, String Delimiters = ",")
         {
-            var timespanExpression = new Regex("([0-9]+):([0-9]+):([0-9]+)");
-            var parseDictionary = new Dictionary<Type, Delegate>();
-            parseDictionary.Add(typeof(Boolean), new Func<String, Boolean>(fieldValue => Convert.ToBoolean(Int32.Parse(fieldValue))));
-            parseDictionary.Add(typeof(DateTime), new Func<String, DateTime>(fieldValue => new DateTime(Int32.Parse(fieldValue.Substring(0, 4)), Int32.Parse(fieldValue.Substring(4, 2)), Int32.Parse(fieldValue.Substring(6, 2)))));
-            parseDictionary.Add(typeof(Decimal), new Func<String, Decimal>(fieldValue => Decimal.Parse(fieldValue)));
-            parseDictionary.Add(typeof(Double), new Func<String, Decimal>(fieldValue => Decimal.Parse(fieldValue)));
-            parseDictionary.Add(typeof(Int32), new Func<String, Int32>(fieldValue => Int32.Parse(fieldValue)));
-            parseDictionary.Add(typeof(TimeSpan), new Func<String, Object>(fieldValue => { try { var timeSpanPart = fieldValue.Split(':'); return new TimeSpan(Int32.Parse(timeSpanPart[0]), Int32.Parse(timeSpanPart[1]), Int32.Parse(timeSpanPart[2])); } catch { return DBNull.Value; } }));
             var textFieldParser = new TextFieldParser(stream);
             textFieldParser.TextFieldType = FieldType.Delimited;
             textFieldParser.SetDelimiters(Delimiters);
@@ -38,8 +45,8 @@ namespace GTFSIO
                     {
                         if (!String.IsNullOrEmpty(fieldValue))
                         {
-                            if (parseDictionary.ContainsKey(table.Columns[fieldReference].DataType))
-                                newRow[fieldReference] = parseDictionary[table.Columns[fieldReference].DataType].DynamicInvoke(fieldValue);
+                            if (ParseDictionary.ContainsKey(table.Columns[fieldReference].DataType))
+                                newRow[fieldReference] = ParseDictionary[table.Columns[fieldReference].DataType].DynamicInvoke(fieldValue);
                             else
                                 newRow[fieldReference] = fieldValue;
                         }
@@ -56,14 +63,20 @@ namespace GTFSIO
 
         public static void WriteCSV(this DataTable table, StreamWriter streamWriter, String Delimiters = ",")
         {
-            var rowFormat = String.Join(Delimiters, table.Columns.OfType<DataColumn>().Select(column => column.DataType.Name).Select((name, index) => "{" + index.ToString() + "}").ToArray());
+            var rowFormat = 
+                String.Join(
+                    Delimiters, 
+                    table.DataColumns()
+                         .Select((_, index) => "{" + index.ToString() + "}")
+                         .ToArray()
+                );
 
-            streamWriter.WriteLine(String.Join(Delimiters, table.Columns.OfType<DataColumn>().Select(column => column.ColumnName).ToArray()));
+            streamWriter.WriteLine(String.Join(Delimiters, table.DataColumns().Select(column => column.ColumnName).ToArray()));
 
-            table.Rows.OfType<DataRow>().ToList().ForEach(row =>
+            table.DataRows().ToList().ForEach(row =>
             {
                 var columns = new List<Object>();
-                row.Table.Columns.OfType<DataColumn>().Select(column => new { TypeName = column.DataType.Name, column.Ordinal }).ToList().ForEach(column =>
+                row.DataColumns().Select(column => new { TypeName = column.DataType.Name, column.Ordinal }).ToList().ForEach(column =>
                 {
                     if (row.IsNull(column.Ordinal))
                         columns.Add(String.Empty);
@@ -109,6 +122,21 @@ namespace GTFSIO
                 });
                 streamWriter.WriteLine(String.Format(rowFormat, columns.ToArray()));
             });
+        }
+
+        public static IEnumerable<DataColumn> DataColumns(this DataRow row)
+        {
+            return row.Table.DataColumns();
+        }
+
+        public static IEnumerable<DataColumn> DataColumns(this DataTable table)
+        {
+            return table.Columns.OfType<DataColumn>();
+        }
+
+        public static IEnumerable<DataRow> DataRows(this DataTable table)
+        {
+            return table.Rows.OfType<DataRow>();
         }
     }
 }
