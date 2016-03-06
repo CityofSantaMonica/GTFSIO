@@ -13,60 +13,61 @@ namespace GTFSIO
     public class GTFS
     {
         public static String OptionalSchemaName { get { return "gtfs.xsd"; } }
+
         public FeedTables FeedTables { get; set; }
         public String Path { get; set; }
 
-        public FeedTables._agency_txtDataTable Agency
+        public FeedTables.AgencyDataTable agency
         {
-            get { return FeedTables._agency_txt; }
+            get { return FeedTables.agency; }
         }
-        public FeedTables._calendar_txtDataTable Calendar
+        public FeedTables.CalendarDataTable calendar
         {
-            get { return FeedTables._calendar_txt; }
+            get { return FeedTables.calendar; }
         }
-        public FeedTables._calendar_dates_txtDataTable CalendarDates
+        public FeedTables.CalendarDatesDataTable calendar_dates
         {
-            get { return FeedTables._calendar_dates_txt; }
+            get { return FeedTables.calendar_dates; }
         }
-        public FeedTables._fare_attributes_txtDataTable FareAttributes
+        public FeedTables.FareAttributesDataTable fare_attributes
         {
-            get { return FeedTables._fare_attributes_txt; }
+            get { return FeedTables.fare_attributes; }
         }
-        public FeedTables._fare_rules_txtDataTable FareRules
+        public FeedTables.FareRulesDataTable fare_rules
         {
-            get { return FeedTables._fare_rules_txt; }
+            get { return FeedTables.fare_rules; }
         }
-        public FeedTables._feed_info_txtDataTable FeedInfo
+        public FeedTables.FeedInfoDataTable feed_info
         {
-            get { return FeedTables._feed_info_txt; }
+            get { return FeedTables.feed_info; }
         }
-        public FeedTables._frequencies_txtDataTable Frequencies
+        public FeedTables.FrequenciesDataTable frequencies
         {
-            get { return FeedTables._frequencies_txt; }
+            get { return FeedTables.frequencies; }
         }
-        public FeedTables._routes_txtDataTable Routes
+        public FeedTables.RoutesDataTable routes
         {
-            get { return FeedTables._routes_txt; }
+            get { return FeedTables.routes; }
         }
-        public FeedTables._shapes_txtDataTable Shapes
+        public FeedTables.ShapesDataTable shapes
         {
-            get { return FeedTables._shapes_txt; }
+            get { return FeedTables.shapes; }
         }
-        public FeedTables._stops_txtDataTable Stops
+        public FeedTables.StopsDataTable stops
         {
-            get { return FeedTables._stops_txt; }
+            get { return FeedTables.stops; }
         }
-        public FeedTables._stop_times_txtDataTable StopTimes
+        public FeedTables.StopTimesDataTable stop_times
         {
-            get { return FeedTables._stop_times_txt; }
+            get { return FeedTables.stop_times; }
         }
-        public FeedTables._transfers_txtDataTable Transfers
+        public FeedTables.TransfersDataTable transfers
         {
-            get { return FeedTables._transfers_txt; }
+            get { return FeedTables.transfers; }
         }
-        public FeedTables._trips_txtDataTable Trips
+        public FeedTables.TripsDataTable trips
         {
-            get { return FeedTables._trips_txt; }
+            get { return FeedTables.trips; }
         }
 
         public DataTable this[int index]
@@ -239,7 +240,7 @@ namespace GTFSIO
             return sortedNames.ToArray();
         }
 
-        //any table in FeedTables that isn't defined in FeedTables.xsd
+        //tables in FeedTables with structure defined in FeedTables.xsd
         //will have a property with the following key
         private static readonly String UserGeneratedTableKey = "Generator_UserTableName";
 
