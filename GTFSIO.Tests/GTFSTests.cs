@@ -157,6 +157,33 @@ namespace GTFSIO.Tests
         }
 
         [Test]
+        [Category("Read")]
+        public void FeedTables_CanBeIndexed_WithStringNames()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "GTFS"));
+
+            GTFS gtfs = new GTFS(di.FullName);
+
+            var strongTable = gtfs.trips;
+            var dataTable = gtfs["trips.txt"];
+
+            Assert.NotNull(dataTable);
+            Assert.AreEqual(strongTable.GetType(), dataTable.GetType());
+            Assert.AreEqual(strongTable.Count, dataTable.Rows.Count);
+
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                //trip_id is the primary key
+                var strongRow = strongTable.Single(strong => String.Equals(strong.trip_id, dataRow["trip_id"]));
+                Assert.AreEqual(strongRow.GetType(), dataRow.GetType());
+                Assert.AreEqual(strongRow.route_id, dataRow["route_id"]);
+                Assert.AreEqual(strongRow.service_id, dataRow["service_id"]);
+                Assert.AreEqual(strongRow.trip_headsign, dataRow["trip_headsign"]);
+            }
+        }
+
+        [Test]
+        [Category("Read")]
         [Category("Write")]
         public void Save_WithCustomTables_WritesXsd()
         {
