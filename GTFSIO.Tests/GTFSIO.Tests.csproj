@@ -68,6 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Custom.zip" />
+    <None Include="Data\CustomBad.zip" />
+    <None Include="Data\CustomBad\test1.csv" />
     <None Include="Data\Custom\gtfs.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -83,6 +85,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Data\CustomBad\test2.txt" />
     <Content Include="Data\Custom\test2.txt" />
     <Content Include="Data\GTFS\agency.txt" />
     <Content Include="Data\GTFS\calendar.txt" />

@@ -12,12 +12,21 @@ namespace GTFSIO.Tests
         //the directory where this project lives
         static readonly string _baseDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.FullName;
 
+        [Test]
+        [Category("Read")]
+        public void FeedTables_Initialized_ByDefault()
+        {
+            var gtfs = new GTFS();
+
+            AssertFeedTablesInitialized(gtfs);
+        }
+
         [TestCase("")]
         [TestCase("bla bla 1-2/3?4")]
         [TestCase("C:\nope")]
         [TestCase("C:\nope\not\there.zip")]
         [Category("Read")]
-        public void New_Constructs_WithNonsense_And_InitializesFeedTables(string nonsense)
+        public void FeedTables_Initialized_WithNonsense(string nonsense)
         {
             GTFS gtfs = null;
 
@@ -28,11 +37,38 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Read")]
-        public void New_Default_InitializesFeedTables()
+        public void FeedTables_NotPopulated_FromDirectoryOfCustomFiles_WhenXsdMissing()
         {
-            var gtfs = new GTFS();
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "CustomBad"));
+
+            var gtfs = new GTFS(di.FullName);
 
             AssertFeedTablesInitialized(gtfs);
+
+            var table1 = gtfs["test1.csv"];
+            Assert.IsNull(table1);
+
+            var table2 = gtfs["test2.txt"];
+            Assert.IsNull(table2);
+        }
+
+        [Test]
+        [Category("Read")]
+        public void FeedTables_NotPopulated_FromZipOfCustomFiles_WhenXsdMissing()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "CustomBad.zip"));
+
+            var gtfs = new GTFS(di.FullName);
+
+            AssertFeedTablesInitialized(gtfs);
+
+            var table1 = gtfs["test1.csv"];
+            Assert.IsNull(table1);
+
+            var table2 = gtfs["test2.txt"];
+            Assert.IsNull(table2);
+        }
+
         }
 
         [Test]
