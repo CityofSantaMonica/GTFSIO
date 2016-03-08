@@ -87,7 +87,7 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Read")]
-        public void New_PopulatesFeedTables_FromDirectoryOfCustomFiles()
+        public void FeedTables_Populated_FromDirectoryOfCustomFiles_WithXsd()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Custom"));
 
@@ -103,13 +103,14 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Read")]
-        public void New_PopulatesFeedTables_FromDirectoryOfGTFSFiles()
+        public void FeedTables_Populated_FromDirectoryOfGTFSFiles()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "GTFS"));
 
             GTFS gtfs = new GTFS(di.FullName);
 
-            AssertFeedTablesInitialized(gtfs);
+            AssertSpecGTFS(gtfs);
+        }
 
         [Test]
         [Category("Read")]
@@ -129,7 +130,7 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Read")]
-        public void New_PopulatesFeedTables_FromZipOfCustomFiles()
+        public void FeedTables_Populated_FromZipOfCustomFiles_WithXsd()
         {
             var fi = new FileInfo(Path.Combine(_baseDirectory, "Data", "Custom.zip"));
 
@@ -145,13 +146,11 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Read")]
-        public void New_PopulatesFeedTables_FromZipOfGTFSFiles()
+        public void FeedTables_Populated_FromZipOfGTFSFiles()
         {
             var fi = new FileInfo(Path.Combine(_baseDirectory, "Data", "GTFS.zip"));
 
             var gtfs = new GTFS(fi.FullName);
-
-            AssertFeedTablesInitialized(gtfs);
 
             AssertSpecGTFS(gtfs);
         }
@@ -185,6 +184,35 @@ namespace GTFSIO.Tests
         [Test]
         [Category("Read")]
         [Category("Write")]
+        public void Save_CanRoundTrip_CustomTables()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
+
+            try
+            {
+                //create the GTFS with custom tables and save it out to the directory
+                var firstGtfs = CreateGTFSWithCustomTables();
+                firstGtfs.Save(di.FullName);
+
+                //now read a new GTFS in from the directory
+                var secondGtfs = new GTFS(di.FullName);
+
+                //and validate the expected table structure
+                AssertFeedTablesInitialized(secondGtfs);
+
+                var table1 = secondGtfs["test1.csv"];
+                var table2 = secondGtfs["test2.txt"];
+
+                AssertCustomTables(table1, table2, schemaOnly: false);
+            }
+            finally
+            {
+                Directory.Delete(di.FullName, true);
+            }
+        }
+
+        [Test]
+        [Category("Write")]
         public void Save_WithCustomTables_WritesXsd()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
@@ -207,36 +235,6 @@ namespace GTFSIO.Tests
                 var table2 = newDataSet.Tables["test2.txt"];
 
                 AssertCustomTables(table1, table2, schemaOnly: true);
-            }
-            finally
-            {
-                Directory.Delete(di.FullName, true);
-            }
-        }
-
-        [Test]
-        [Category("Read")]
-        [Category("Write")]
-        public void GTFS_CanRoundTrip_CustomTables()
-        {
-            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
-
-            try
-            {
-                //create the GTFS with custom tables and save it out to the directory
-                var firstGtfs = CreateGTFSWithCustomTables();
-                firstGtfs.Save(di.FullName);
-
-                //now read a new GTFS in from the directory
-                var secondGtfs = new GTFS(di.FullName);
-
-                //and validate the expected table structure
-                AssertFeedTablesInitialized(secondGtfs);
-
-                var table1 = secondGtfs["test1.csv"];
-                var table2 = secondGtfs["test2.txt"];
-
-                AssertCustomTables(table1, table2, schemaOnly: false);
             }
             finally
             {
