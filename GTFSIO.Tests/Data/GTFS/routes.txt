@@ -1,0 +1,4 @@
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+1,1,1,Main St & Santa Monica Blvd/UCLA,,3,http://example.com/routes/1,F8971D,000000
+2,1,2,Wilshire Blvd/UCLA,,3,http://example.com/routes/2,552988,FFFFFF
+3,1,3,Lincoln Blvd/LAX Rapid,,3,http://example.com/routes/3,8FD2CA,000000

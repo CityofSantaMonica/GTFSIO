@@ -1,0 +1,19 @@
+route_id,service_id,trip_id,trip_headsign,trip_short_name,direction_id,block_id,shape_id,wheelchair_accessible,bikes_allowed
+1,1,110,UCLA,,0,06,21067,0,0
+1,1,111,Marina del Rey,,1,07,21084,0,0
+2,1,210,UCLA,,0,01,20995,0,0
+2,1,211,Downtown Santa Monica,,1,08,20998,0,0
+3,1,310,Downtown Santa Monica,,0,03,21041,0,0
+3,1,311,LAX,,1,13,21042,0,0
+1,2,120,UCLA,,0,09,21071,0,0
+1,2,121,Marina del Rey,,1,10,21084,0,0
+2,2,220,UCLA,,0,11,20995,0,0
+2,2,221,Downtown Santa Monica,,1,02,20998,0,0
+3,2,320,Downtown Santa Monica,,0,16,21041,0,0
+1,3,130,UCLA,,0,05,21067,0,0
+1,3,131,Marina del Rey,,1,04,21078,0,0
+2,3,230,UCLA,,0,15,20996,0,0
+2,3,231,Downtown Santa Monica,,1,17,20999,0,0
+3,3,330,Downtown Santa Monica,,0,14,21041,0,0
+3,3,331,LAX,,1,12,21042,0,0
+3,2,321,LAX,,1,18,21042,0,0
