@@ -21,7 +21,7 @@ Read a directory containing a set of
 [GTFS feed files](https://developers.google.com/transit/gtfs/reference?hl=en#feed-files)
 
 ```charp
-var gtfs = new GTFS("C:\path\to\gtfs\files\");
+var gtfs = new GTFS("C:\path\to\gtfs\files");
 ```
 
 Or a `.zip` file containing the GTFS feed files
@@ -34,14 +34,11 @@ Now query the feed tables using LINQ and strongly typed
 [`DataRows`](https://msdn.microsoft.com/en-us/library/system.data.datarow)
 
 ```charp
-var feedTables = gtfs.FeedTables;
+var agencyName = gtfs.agency.First().agency_name;
 
-var agencyName = feedTables._agency_txt.First().agency_name;
+var freeRides = gtfs.fare_attributes.Where(attr => attr.price == 0.0);
 
-var wheelChairFriendlyStopNames =
-    feedTables._stops_txt
-              .Where(stop => stop.wheelchair_boarding == "true")
-              .Select(stop => stop.stop_name);
+var wheelchairStops = gtfs.stops.Where(stop => stop.wheelchair_boarding == "true");
 ```
 
 ### Ad-hoc supplementary data
@@ -49,75 +46,107 @@ var wheelChairFriendlyStopNames =
 String indexing is also supported for the feed tables and their columns
 
 ```charp
-var agencyName =
-    feedTables.Tables["agency_txt"]
-              .Rows[0]["agency_name"].ToString();
+var agencyName = gtfs["agency.txt"].Rows[0]["agency_name"].ToString();
 ```
 
 This is useful since `GTFSIO` will create in-memory `DataTables` for each data file in
-the input directory/archive; including files that don't correspond to the GTFS spec.
+the input directory/archive, including files that don't correspond to the GTFS spec,
+as long as a schema is provided (in the form of a `gtfs.xsd` file).
 
 For example, assuming the following directory:
 
 ```
 |-- data
     |-- agency.txt
-    |-- stops.txt
-    |-- routes.txt
-    |-- trips.txt
-    |-- stop_times.txt
     |-- calendar.txt
     |-- custom.csv
+    |-- gtfs.xsd
+    |-- routes.txt
+    |-- stops.txt
+    |-- stop_times.txt
+    |-- trips.txt
 ```
 
 Where the `.txt` files are standard GTFS feed files, and `custom.csv` is a non-spec file
 like
 
-| id | field_a | field_b |
-| -- | ------- | ------- |
-| 0  | 01234   | "abcde" |
-| 1  | 56789   | "fghij" |
-| 2  | 01234   | "fghij" |
+| trip_id | extra_data |
+| ------- | ---------- |
+| 0       | "abcde"    |
+| 1       | "fghij"    |
+| 2       | "klmno"    |
+
+And `gtfs.xsd` is an xml schema like:
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<xs:schema targetNamespace='http://tempuri.org/XMLSchema.xsd' xmlns='http://tempuri.org/XMLSchema.xsd' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+    <xs:element name='custom.csv'>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name='trip_id' type='xs:integer'/>
+                <xs:element name='extra_data' type='xs:string'/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+```
 
 Then one could read the directory as normal, and have access to both GTFS-spec data and
 the custom data
 
 ```csharp
-var gtfs = new GTFS(".\data\");
+var gtfs = new GTFS(".\data");
 
 var joinedTripData =
-    //join the trips_txt table
-    gtfs.FeedTables._trips_txt.Join(
+    //join the trips.txt table
+    gtfs.trips.Join(
         //with the DataRows in our custom table
-        custom_data.Rows.OfType<DataRow>(),
-        //on the trip id from trips_txt
+        gtfs["custom.csv"].DataRows(),
+        //on the trip_id from trips.txt
         trip => trip.trip_id,
-        //and field_b in the custom table
-        custom => custom["field_b"],
+        //and trip_id in the custom table
+        custom => custom["trip_id"],
         //create a new anonymous object with the trip data
-        //and field_a from the custom table
+        //and the id from the custom table
         (trip, custom) => new {
             trip = trip,
-            custom_id = custom["field_a"]
+            extra = custom["extra_data"]
         }
     );
 ```
-
 ### GTFS Writes
 
 `GTFSIO` can also write the current state of the feed tables to disk. All tables that have at
 least 1 row of data will be written.
 
 ```charp
-var gtfs = new GTFS(".\data\");
+var gtfs = new GTFS(".\data");
 
 //transform or otherwise process the data in memory
 
 //then save it out to a directory
-gtfs.Save(".\new_data\");
+gtfs.Save(".\new_data");
 
 //or a zip archive
 gtfs.Save(".\new_data.zip");
+```
+
+`GTFSIO` creates the appropriate `gtfs.xsd` file if custom `DataTables` are added
+and serialized:
+
+```csharp
+var gtfs = new GTFS();
+
+var table = new DataTable();
+table.Columns.Add(new DataColumn("trip_id"));
+table.Columns.Add(new DataColumn("extra_data"));
+table.Rows.Add(0, "abcde");
+
+gtfs.Add(table);
+gtfs.Save(".\path");
+
+// ==> ".\path\gtfs.xsd" exists and is similar to the example above.
 ```
 
 ## Tests
