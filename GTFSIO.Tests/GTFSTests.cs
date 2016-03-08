@@ -69,6 +69,20 @@ namespace GTFSIO.Tests
             Assert.IsNull(table2);
         }
 
+        [Test]
+        [Category("Read")]
+        public void FeedTables_Populated_FromDirectoryOfCombinedFiles_WithXsd()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Combined"));
+
+            var gtfs = new GTFS(di.FullName);
+
+            AssertSpecGTFS(gtfs);
+
+            var table1 = gtfs["test1.csv"];
+            var table2 = gtfs["test2.txt"];
+
+            AssertCustomTables(table1, table2, schemaOnly: false);
         }
 
         [Test]
@@ -97,7 +111,20 @@ namespace GTFSIO.Tests
 
             AssertFeedTablesInitialized(gtfs);
 
+        [Test]
+        [Category("Read")]
+        public void FeedTables_Populated_FromZipOfCombinedFiles_WithXsd()
+        {
+            var fi = new FileInfo(Path.Combine(_baseDirectory, "Data", "Combined.zip"));
+
+            var gtfs = new GTFS(fi.FullName);
+
             AssertSpecGTFS(gtfs);
+
+            var table1 = gtfs["test1.csv"];
+            var table2 = gtfs["test2.txt"];
+
+            AssertCustomTables(table1, table2, schemaOnly: false);
         }
 
         [Test]
@@ -254,7 +281,7 @@ namespace GTFSIO.Tests
         //Asserts the existence of (GTFS spec) data found in Data/GTFS/ and Data/GTFS.zip
         private void AssertSpecGTFS(GTFS gtfs)
         {
-            Assert.AreEqual(13, gtfs.DataTables.Count());
+            Assert.GreaterOrEqual(gtfs.DataTables.Count(), 13);
 
             AssertAgency(gtfs);
             AssertCalendar(gtfs);

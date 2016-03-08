@@ -67,6 +67,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Combined.zip" />
+    <None Include="Data\Combined\gtfs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\Combined\test1.csv" />
     <None Include="Data\Custom.zip" />
     <None Include="Data\CustomBad.zip" />
     <None Include="Data\CustomBad\test1.csv" />
@@ -85,6 +90,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Data\Combined\agency.txt" />
+    <Content Include="Data\Combined\calendar.txt" />
+    <Content Include="Data\Combined\calendar_dates.txt" />
+    <Content Include="Data\Combined\fare_attributes.txt" />
+    <Content Include="Data\Combined\fare_rules.txt" />
+    <Content Include="Data\Combined\feed_info.txt" />
+    <Content Include="Data\Combined\routes.txt" />
+    <Content Include="Data\Combined\shapes.txt" />
+    <Content Include="Data\Combined\stops.txt" />
+    <Content Include="Data\Combined\stop_times.txt" />
+    <Content Include="Data\Combined\test2.txt" />
+    <Content Include="Data\Combined\trips.txt" />
     <Content Include="Data\CustomBad\test2.txt" />
     <Content Include="Data\Custom\test2.txt" />
     <Content Include="Data\GTFS\agency.txt" />
