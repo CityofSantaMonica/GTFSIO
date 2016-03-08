@@ -20,20 +20,20 @@ system. The following are some simple code samples.
 Read a directory containing a set of
 [GTFS feed files](https://developers.google.com/transit/gtfs/reference?hl=en#feed-files)
 
-```charp
+```csharp
 var gtfs = new GTFS("C:\path\to\gtfs\files");
 ```
 
 Or a `.zip` file containing the GTFS feed files
 
-```charp
+```csharp
 var gtfs = new GTFS("C:\path\to\gtfs.zip");
 ```
 
 Now query the feed tables using LINQ and strongly typed
 [`DataRows`](https://msdn.microsoft.com/en-us/library/system.data.datarow)
 
-```charp
+```csharp
 var agencyName = gtfs.agency.First().agency_name;
 
 var freeRides = gtfs.fare_attributes.Where(attr => attr.price == 0.0);
@@ -45,7 +45,7 @@ var wheelchairStops = gtfs.stops.Where(stop => stop.wheelchair_boarding == "true
 
 String indexing is also supported for the feed tables and their columns
 
-```charp
+```csharp
 var agencyName = gtfs["agency.txt"].Rows[0]["agency_name"].ToString();
 ```
 
@@ -120,7 +120,7 @@ var joinedTripData =
 `GTFSIO` can also write the current state of the feed tables to disk. All tables that have at
 least 1 row of data will be written.
 
-```charp
+```csharp
 var gtfs = new GTFS(".\data");
 
 //transform or otherwise process the data in memory
