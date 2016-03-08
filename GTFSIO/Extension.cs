@@ -25,6 +25,12 @@ namespace GTFSIO
             }
         }
 
+        /// <summary>
+        /// Populate this <see cref="DataTable"/> from separated values.
+        /// </summary>
+        /// <param name="table">The <see cref="DataTable"/> to populate.</param>
+        /// <param name="stream">The <see cref="Stream"/> to read data from.</param>
+        /// <param name="Delimiters">The delimiter string used to separate data fields.</param>
         public static void ReadCSV(this DataTable table, Stream stream, String Delimiters = ",")
         {
             var textFieldParser = new TextFieldParser(stream);
@@ -61,6 +67,12 @@ namespace GTFSIO
             stream.Close();
         }
 
+        /// <summary>
+        /// Serialize this <see cref="DataTable"/> to separated values.
+        /// </summary>
+        /// <param name="table">The <see cref="DataTable"/> to serialize.</param>
+        /// <param name="streamWriter">The <see cref="StreamWriter"/> used to write data.</param>
+        /// <param name="Delimiters">The delimiter string used to separate data fields.</param>
         public static void WriteCSV(this DataTable table, StreamWriter streamWriter, String Delimiters = ",")
         {
             var rowFormat = 
@@ -124,16 +136,25 @@ namespace GTFSIO
             });
         }
 
+        /// <summary>
+        /// Convenience method for the collection of <see cref="DataColumn"/> associated with this <see cref="DataRow"/>.
+        /// </summary>
         public static IEnumerable<DataColumn> DataColumns(this DataRow row)
         {
             return row.Table.DataColumns();
         }
 
+        /// <summary>
+        /// Convenience method for the collection of <see cref="DataColumn"/> associated with this <see cref="DataTable"/>.
+        /// </summary>
         public static IEnumerable<DataColumn> DataColumns(this DataTable table)
         {
             return table.Columns.OfType<DataColumn>();
         }
 
+        /// <summary>
+        /// Convenience method for the collection of <see cref="DataRow"/> associated with this <see cref="DataTable"/>.
+        /// </summary>
         public static IEnumerable<DataRow> DataRows(this DataTable table)
         {
             return table.Rows.OfType<DataRow>();
