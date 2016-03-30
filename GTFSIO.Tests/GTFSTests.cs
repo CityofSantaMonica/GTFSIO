@@ -10,7 +10,7 @@ namespace GTFSIO.Tests
     public class GTFSTests
     {
         //the directory where this project lives
-        static readonly string _baseDirectory = Directory.GetParent(TestContext.CurrentContext.TestDirectory).Parent.FullName;
+        static string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         [Test]
         [Category("Read")]
