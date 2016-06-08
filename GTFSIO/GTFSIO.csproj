@@ -79,10 +79,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Nuget'">
-    <Exec Command="echo Creating Nuget Package"></Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy $(TargetDir)*.* .\lib\ /y"></Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="nuget pack $(ProjectFileName) -Prop Configuration=Nuget;Platform=AnyCPU"></Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="rd /S /Q .\lib"></Exec>
-    <Exec Command="echo Finished Nuget Package creation"></Exec>
+    <Exec Command="echo Creating Nuget Package">
+    </Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy $(TargetDir)*.* .\lib\ /y">
+    </Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="nuget pack $(ProjectFileName) -Prop Configuration=Nuget;Platform=AnyCPU">
+    </Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="rd /S /Q .\lib">
+    </Exec>
+    <Exec Command="echo Finished Nuget Package creation">
+    </Exec>
   </Target>
 </Project>

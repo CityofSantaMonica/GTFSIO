@@ -50,9 +50,11 @@ namespace GTFSIO {
         
         private FeedInfoDataTable _feed_info;
         
+        private servicesDataTable tableservices;
+        
         private global::System.Data.DataRelation relationagency_routes;
         
-        private global::System.Data.DataRelation relationcalendar_trips;
+        private global::System.Data.DataRelation _relationservices_trips_txt;
         
         private global::System.Data.DataRelation relationroutes_trips;
         
@@ -60,7 +62,9 @@ namespace GTFSIO {
         
         private global::System.Data.DataRelation relationstops_stop_times;
         
-        private global::System.Data.DataRelation relationcalendar_calendar_dates;
+        private global::System.Data.DataRelation _relationservices_calendar_txt;
+        
+        private global::System.Data.DataRelation _relationservices_calendar_dates_txt;
         
         private global::System.Data.DataRelation relationroutes_fare_rules;
         
@@ -138,6 +142,9 @@ namespace GTFSIO {
                 }
                 if ((ds.Tables["feed_info.txt"] != null)) {
                     base.Tables.Add(new FeedInfoDataTable(ds.Tables["feed_info.txt"]));
+                }
+                if ((ds.Tables["services"] != null)) {
+                    base.Tables.Add(new servicesDataTable(ds.Tables["services"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -289,6 +296,16 @@ namespace GTFSIO {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public servicesDataTable services {
+            get {
+                return this.tableservices;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -392,6 +409,9 @@ namespace GTFSIO {
                 }
                 if ((ds.Tables["feed_info.txt"] != null)) {
                     base.Tables.Add(new FeedInfoDataTable(ds.Tables["feed_info.txt"]));
+                }
+                if ((ds.Tables["services"] != null)) {
+                    base.Tables.Add(new servicesDataTable(ds.Tables["services"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -504,12 +524,19 @@ namespace GTFSIO {
                     this._feed_info.InitVars();
                 }
             }
+            this.tableservices = ((servicesDataTable)(base.Tables["services"]));
+            if ((initTable == true)) {
+                if ((this.tableservices != null)) {
+                    this.tableservices.InitVars();
+                }
+            }
             this.relationagency_routes = this.Relations["agency_routes"];
-            this.relationcalendar_trips = this.Relations["calendar_trips"];
+            this._relationservices_trips_txt = this.Relations["services_trips.txt"];
             this.relationroutes_trips = this.Relations["routes_trips"];
             this.relationtrips_stop_times = this.Relations["trips_stop_times"];
             this.relationstops_stop_times = this.Relations["stops_stop_times"];
-            this.relationcalendar_calendar_dates = this.Relations["calendar_calendar_dates"];
+            this._relationservices_calendar_txt = this.Relations["services_calendar.txt"];
+            this._relationservices_calendar_dates_txt = this.Relations["services_calendar_dates.txt"];
             this.relationroutes_fare_rules = this.Relations["routes_fare_rules"];
             this.relationfare_attributes_fare_rules = this.Relations["fare_attributes_fare_rules"];
             this.relationtrips_frequencies = this.Relations["trips_frequencies"];
@@ -551,6 +578,8 @@ namespace GTFSIO {
             base.Tables.Add(this._transfers);
             this._feed_info = new FeedInfoDataTable();
             base.Tables.Add(this._feed_info);
+            this.tableservices = new servicesDataTable();
+            base.Tables.Add(this.tableservices);
             global::System.Data.ForeignKeyConstraint fkc;
             fkc = new global::System.Data.ForeignKeyConstraint("agency_routes", new global::System.Data.DataColumn[] {
                         this._agency.AgencyIdColumn}, new global::System.Data.DataColumn[] {
@@ -559,8 +588,8 @@ namespace GTFSIO {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("calendar_trips", new global::System.Data.DataColumn[] {
-                        this._calendar.ServiceIdColumn}, new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("services_trips.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
                         this._trips.ServiceIdColumn});
             this._trips.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
@@ -587,8 +616,15 @@ namespace GTFSIO {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            fkc = new global::System.Data.ForeignKeyConstraint("calendar_calendar_dates", new global::System.Data.DataColumn[] {
-                        this._calendar.ServiceIdColumn}, new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("services_calendar.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
+                        this._calendar.ServiceIdColumn});
+            this._calendar.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
+            fkc = new global::System.Data.ForeignKeyConstraint("services_calendar_dates.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
                         this._calendar_dates.ServiceIdColumn});
             this._calendar_dates.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
@@ -626,10 +662,10 @@ namespace GTFSIO {
                         this._agency.AgencyIdColumn}, new global::System.Data.DataColumn[] {
                         this._routes.AgencyIdColumn}, false);
             this.Relations.Add(this.relationagency_routes);
-            this.relationcalendar_trips = new global::System.Data.DataRelation("calendar_trips", new global::System.Data.DataColumn[] {
-                        this._calendar.ServiceIdColumn}, new global::System.Data.DataColumn[] {
+            this._relationservices_trips_txt = new global::System.Data.DataRelation("services_trips.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
                         this._trips.ServiceIdColumn}, false);
-            this.Relations.Add(this.relationcalendar_trips);
+            this.Relations.Add(this._relationservices_trips_txt);
             this.relationroutes_trips = new global::System.Data.DataRelation("routes_trips", new global::System.Data.DataColumn[] {
                         this._routes.RouteIdColumn}, new global::System.Data.DataColumn[] {
                         this._trips.RouteIdColumn}, false);
@@ -642,10 +678,14 @@ namespace GTFSIO {
                         this._stops.StopIdColumn}, new global::System.Data.DataColumn[] {
                         this._stop_times.StopIdColumn}, false);
             this.Relations.Add(this.relationstops_stop_times);
-            this.relationcalendar_calendar_dates = new global::System.Data.DataRelation("calendar_calendar_dates", new global::System.Data.DataColumn[] {
-                        this._calendar.ServiceIdColumn}, new global::System.Data.DataColumn[] {
+            this._relationservices_calendar_txt = new global::System.Data.DataRelation("services_calendar.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
+                        this._calendar.ServiceIdColumn}, false);
+            this.Relations.Add(this._relationservices_calendar_txt);
+            this._relationservices_calendar_dates_txt = new global::System.Data.DataRelation("services_calendar_dates.txt", new global::System.Data.DataColumn[] {
+                        this.tableservices.service_idColumn}, new global::System.Data.DataColumn[] {
                         this._calendar_dates.ServiceIdColumn}, false);
-            this.Relations.Add(this.relationcalendar_calendar_dates);
+            this.Relations.Add(this._relationservices_calendar_dates_txt);
             this.relationroutes_fare_rules = new global::System.Data.DataRelation("routes_fare_rules", new global::System.Data.DataColumn[] {
                         this._routes.RouteIdColumn}, new global::System.Data.DataColumn[] {
                         this._fare_rules.RouteIdColumn}, false);
@@ -748,6 +788,12 @@ namespace GTFSIO {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeservices() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -839,6 +885,9 @@ namespace GTFSIO {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void FeedInfoRowChangeEventHandler(object sender, FeedInfoRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void servicesRowChangeEventHandler(object sender, servicesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -2255,7 +2304,7 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TripsRow AddTripsRow(RoutesRow parentRoutesRowByroutes_trips, CalendarRow parentCalendarRowBycalendar_trips, string trip_id, string trip_headsign, string trip_short_name, string direction_id, string block_id, string shape_id, string wheelchair_accessible, string bikes_allowed) {
+            public TripsRow AddTripsRow(RoutesRow parentRoutesRowByroutes_trips, servicesRow _parentservicesRowByservices_trips_txt, string trip_id, string trip_headsign, string trip_short_name, string direction_id, string block_id, string shape_id, string wheelchair_accessible, string bikes_allowed) {
                 TripsRow rowTripsRow = ((TripsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2271,8 +2320,8 @@ namespace GTFSIO {
                 if ((parentRoutesRowByroutes_trips != null)) {
                     columnValuesArray[0] = parentRoutesRowByroutes_trips[0];
                 }
-                if ((parentCalendarRowBycalendar_trips != null)) {
-                    columnValuesArray[1] = parentCalendarRowBycalendar_trips[0];
+                if ((_parentservicesRowByservices_trips_txt != null)) {
+                    columnValuesArray[1] = _parentservicesRowByservices_trips_txt[0];
                 }
                 rowTripsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTripsRow);
@@ -3103,10 +3152,10 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarRow AddCalendarRow(string service_id, bool monday, bool tuesday, bool wednesday, bool thursday, bool friday, bool saturday, bool sunday, System.DateTime start_date, System.DateTime end_date) {
+            public CalendarRow AddCalendarRow(servicesRow _parentservicesRowByservices_calendar_txt, bool monday, bool tuesday, bool wednesday, bool thursday, bool friday, bool saturday, bool sunday, System.DateTime start_date, System.DateTime end_date) {
                 CalendarRow rowCalendarRow = ((CalendarRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        service_id,
+                        null,
                         monday,
                         tuesday,
                         wednesday,
@@ -3116,16 +3165,12 @@ namespace GTFSIO {
                         sunday,
                         start_date,
                         end_date};
+                if ((_parentservicesRowByservices_calendar_txt != null)) {
+                    columnValuesArray[0] = _parentservicesRowByservices_calendar_txt[0];
+                }
                 rowCalendarRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCalendarRow);
                 return rowCalendarRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarRow FindByservice_id(string service_id) {
-                return ((CalendarRow)(this.Rows.Find(new object[] {
-                            service_id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3209,10 +3254,7 @@ namespace GTFSIO {
                 this._EndDateColumn.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_EndDateColumn");
                 this._EndDateColumn.ExtendedProperties.Add("Generator_UserColumnName", "end_date");
                 base.Columns.Add(this._EndDateColumn);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this._ServiceIdColumn}, true));
                 this._ServiceIdColumn.AllowDBNull = false;
-                this._ServiceIdColumn.Unique = true;
                 this.ExtendedProperties.Add("Generator_RowClassName", "CalendarRow");
                 this.ExtendedProperties.Add("Generator_RowEvArgName", "CalendarRowChangeEvent");
                 this.ExtendedProperties.Add("Generator_RowEvHandlerName", "CalendarRowChangeEventHandler");
@@ -3453,14 +3495,14 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarDatesRow AddCalendarDatesRow(CalendarRow parentCalendarRowBycalendar_calendar_dates, System.DateTime date, string exception_type) {
+            public CalendarDatesRow AddCalendarDatesRow(servicesRow _parentservicesRowByservices_calendar_dates_txt, System.DateTime date, string exception_type) {
                 CalendarDatesRow rowCalendarDatesRow = ((CalendarDatesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         date,
                         exception_type};
-                if ((parentCalendarRowBycalendar_calendar_dates != null)) {
-                    columnValuesArray[0] = parentCalendarRowBycalendar_calendar_dates[0];
+                if ((_parentservicesRowByservices_calendar_dates_txt != null)) {
+                    columnValuesArray[0] = _parentservicesRowByservices_calendar_dates_txt[0];
                 }
                 rowCalendarDatesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCalendarDatesRow);
@@ -5652,6 +5694,264 @@ namespace GTFSIO {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class servicesDataTable : global::System.Data.TypedTableBase<servicesRow> {
+            
+            private global::System.Data.DataColumn columnservice_id;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesDataTable() {
+                this.TableName = "services";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal servicesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected servicesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn service_idColumn {
+                get {
+                    return this.columnservice_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow this[int index] {
+                get {
+                    return ((servicesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event servicesRowChangeEventHandler servicesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event servicesRowChangeEventHandler servicesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event servicesRowChangeEventHandler servicesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event servicesRowChangeEventHandler servicesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddservicesRow(servicesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow AddservicesRow(string service_id) {
+                servicesRow rowservicesRow = ((servicesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        service_id};
+                rowservicesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowservicesRow);
+                return rowservicesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow FindByservice_id(string service_id) {
+                return ((servicesRow)(this.Rows.Find(new object[] {
+                            service_id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                servicesDataTable cln = ((servicesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new servicesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnservice_id = base.Columns["service_id"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnservice_id = new global::System.Data.DataColumn("service_id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnservice_id);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnservice_id}, true));
+                this.columnservice_id.AllowDBNull = false;
+                this.columnservice_id.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow NewservicesRow() {
+                return ((servicesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new servicesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(servicesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.servicesRowChanged != null)) {
+                    this.servicesRowChanged(this, new servicesRowChangeEvent(((servicesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.servicesRowChanging != null)) {
+                    this.servicesRowChanging(this, new servicesRowChangeEvent(((servicesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.servicesRowDeleted != null)) {
+                    this.servicesRowDeleted(this, new servicesRowChangeEvent(((servicesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.servicesRowDeleting != null)) {
+                    this.servicesRowDeleting(this, new servicesRowChangeEvent(((servicesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveservicesRow(servicesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                FeedTables ds = new FeedTables();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "servicesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class AgencyRow : global::System.Data.DataRow {
@@ -6565,12 +6865,12 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarRow CalendarRow {
+            public servicesRow servicesRow {
                 get {
-                    return ((CalendarRow)(this.GetParentRow(this.Table.ParentRelations["calendar_trips"])));
+                    return ((servicesRow)(this.GetParentRow(this.Table.ParentRelations["services_trips.txt"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["calendar_trips"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["services_trips.txt"]);
                 }
             }
             
@@ -7129,6 +7429,17 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow servicesRow {
+                get {
+                    return ((servicesRow)(this.GetParentRow(this.Table.ParentRelations["services_calendar.txt"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["services_calendar.txt"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsmondayNull() {
                 return this.IsNull(this._calendar.mondayColumn);
             }
@@ -7234,28 +7545,6 @@ namespace GTFSIO {
             public void Setend_dateNull() {
                 this[this._calendar.EndDateColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarDatesRow[] GetCalendarDates() {
-                if ((this.Table.ChildRelations["calendar_calendar_dates"] == null)) {
-                    return new CalendarDatesRow[0];
-                }
-                else {
-                    return ((CalendarDatesRow[])(base.GetChildRows(this.Table.ChildRelations["calendar_calendar_dates"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TripsRow[] GetTrips() {
-                if ((this.Table.ChildRelations["calendar_trips"] == null)) {
-                    return new TripsRow[0];
-                }
-                else {
-                    return ((TripsRow[])(base.GetChildRows(this.Table.ChildRelations["calendar_trips"])));
-                }
-            }
         }
         
         /// <summary>
@@ -7322,12 +7611,12 @@ namespace GTFSIO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CalendarRow CalendarRow {
+            public servicesRow servicesRow {
                 get {
-                    return ((CalendarRow)(this.GetParentRow(this.Table.ParentRelations["calendar_calendar_dates"])));
+                    return ((servicesRow)(this.GetParentRow(this.Table.ParentRelations["services_calendar_dates.txt"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["calendar_calendar_dates"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["services_calendar_dates.txt"]);
                 }
             }
             
@@ -8258,6 +8547,65 @@ namespace GTFSIO {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class servicesRow : global::System.Data.DataRow {
+            
+            private servicesDataTable tableservices;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal servicesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableservices = ((servicesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string service_id {
+                get {
+                    return ((string)(this[this.tableservices.service_idColumn]));
+                }
+                set {
+                    this[this.tableservices.service_idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CalendarDatesRow[] GetCalendarDates() {
+                if ((this.Table.ChildRelations["services_calendar_dates.txt"] == null)) {
+                    return new CalendarDatesRow[0];
+                }
+                else {
+                    return ((CalendarDatesRow[])(base.GetChildRows(this.Table.ChildRelations["services_calendar_dates.txt"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public CalendarRow[] GetCalendar() {
+                if ((this.Table.ChildRelations["services_calendar.txt"] == null)) {
+                    return new CalendarRow[0];
+                }
+                else {
+                    return ((CalendarRow[])(base.GetChildRows(this.Table.ChildRelations["services_calendar.txt"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TripsRow[] GetTrips() {
+                if ((this.Table.ChildRelations["services_trips.txt"] == null)) {
+                    return new TripsRow[0];
+                }
+                else {
+                    return ((TripsRow[])(base.GetChildRows(this.Table.ChildRelations["services_trips.txt"])));
+                }
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -8685,6 +9033,40 @@ namespace GTFSIO {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public FeedInfoRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class servicesRowChangeEvent : global::System.EventArgs {
+            
+            private servicesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRowChangeEvent(servicesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public servicesRow Row {
                 get {
                     return this.eventRow;
                 }
