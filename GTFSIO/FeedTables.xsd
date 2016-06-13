@@ -182,10 +182,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="services" msprop:Generator_TableClassName="servicesDataTable" msprop:Generator_TableVarName="tableservices" msprop:Generator_RowChangedName="servicesRowChanged" msprop:Generator_TablePropName="services" msprop:Generator_RowDeletingName="servicesRowDeleting" msprop:Generator_RowChangingName="servicesRowChanging" msprop:Generator_RowEvHandlerName="servicesRowChangeEventHandler" msprop:Generator_RowDeletedName="servicesRowDeleted" msprop:Generator_RowClassName="servicesRow" msprop:Generator_UserTableName="services" msprop:Generator_RowEvArgName="servicesRowChangeEvent">
+        <xs:element name="services" msprop:Generator_TableClassName="ServicesDataTable" msprop:Generator_TableVarName="_services" msprop:Generator_RowChangedName="ServicesRowChanged" msprop:Generator_TablePropName="services" msprop:Generator_RowDeletingName="ServicesRowDeleting" msprop:Generator_RowChangingName="ServicesRowChanging" msprop:Generator_RowEvHandlerName="ServicesRowChangeEventHandler" msprop:Generator_RowDeletedName="ServicesRowDeleted" msprop:Generator_RowClassName="ServicesRow" msprop:Generator_UserTableName="services" msprop:Generator_RowEvArgName="ServicesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="service_id" msprop:Generator_ColumnVarNameInTable="columnservice_id" msprop:Generator_ColumnPropNameInRow="service_id" msprop:Generator_ColumnPropNameInTable="service_idColumn" msprop:Generator_UserColumnName="service_id" type="xs:string" />
+              <xs:element name="service_id" msprop:Generator_ColumnVarNameInTable="_service_id" msprop:Generator_ColumnPropNameInRow="service_id" msprop:Generator_ColumnPropNameInTable="ServiceIdColumn" msprop:Generator_UserColumnName="service_id" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -220,7 +220,7 @@
       <xs:selector xpath=".//mstns:services" />
       <xs:field xpath="mstns:service_id" />
     </xs:unique>
-    <xs:keyref name="stops_transfers_to" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="transfers.txt" msprop:rel_Generator_ChildPropName="GetTransfersTo" msprop:rel_Generator_UserRelationName="stops_transfers_to" msprop:rel_Generator_RelationVarName="relationstops_transfers_to" msprop:rel_Generator_UserParentTable="stops.txt" msprop:rel_Generator_ParentPropName="StopsRowBystops_transfers_to">
+    <xs:keyref name="stops_transfers_to" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="transfers.txt" msprop:rel_Generator_ChildPropName="GetTransfersTo" msprop:rel_Generator_UserRelationName="stops_transfers_to" msprop:rel_Generator_RelationVarName="relationstops_transfers_to" msprop:rel_Generator_UserParentTable="stops.txt" msprop:rel_Generator_ParentPropName="StopsRowByTransfersTo">
       <xs:selector xpath=".//mstns:transfers.txt" />
       <xs:field xpath="mstns:to_stop_id" />
     </xs:keyref>
@@ -236,11 +236,11 @@
       <xs:selector xpath=".//mstns:fare_rules.txt" />
       <xs:field xpath="mstns:fare_id" />
     </xs:keyref>
-    <xs:keyref name="services_calendar_dates.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar_dates.txt" msprop:rel_Generator_ChildPropName="GetCalendarDates" msprop:rel_Generator_UserRelationName="services_calendar_dates.txt" msprop:rel_Generator_ParentPropName="servicesRow" msprop:rel_Generator_RelationVarName="_relationservices_calendar_dates_txt" msprop:rel_Generator_UserParentTable="services">
+    <xs:keyref name="services_calendar_dates.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar_dates.txt" msprop:rel_Generator_ChildPropName="GetCalendarDates" msprop:rel_Generator_UserRelationName="services_calendar_dates.txt" msprop:rel_Generator_ParentPropName="ServicesRow" msprop:rel_Generator_RelationVarName="relationservices_calendar_dates_txt" msprop:rel_Generator_UserParentTable="services">
       <xs:selector xpath=".//mstns:calendar_dates.txt" />
       <xs:field xpath="mstns:service_id" />
     </xs:keyref>
-    <xs:keyref name="services_calendar.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar.txt" msprop:rel_Generator_ChildPropName="GetCalendar" msprop:rel_Generator_UserRelationName="services_calendar.txt" msprop:rel_Generator_ParentPropName="servicesRow" msprop:rel_Generator_RelationVarName="_relationservices_calendar_txt" msprop:rel_Generator_UserParentTable="services">
+    <xs:keyref name="services_calendar.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar.txt" msprop:rel_Generator_ChildPropName="GetCalendar" msprop:rel_Generator_UserRelationName="services_calendar.txt" msprop:rel_Generator_ParentPropName="ServicesRow" msprop:rel_Generator_RelationVarName="relationservices_calendar_txt" msprop:rel_Generator_UserParentTable="services">
       <xs:selector xpath=".//mstns:calendar.txt" />
       <xs:field xpath="mstns:service_id" />
     </xs:keyref>
@@ -252,7 +252,7 @@
       <xs:selector xpath=".//mstns:stop_times.txt" />
       <xs:field xpath="mstns:stop_id" />
     </xs:keyref>
-    <xs:keyref name="services_trips.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="services_trips.txt" msprop:rel_Generator_RelationVarName="_relationservices_trips_txt" msprop:rel_Generator_UserParentTable="services" msprop:rel_Generator_ParentPropName="servicesRow">
+    <xs:keyref name="services_trips.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="services_trips.txt" msprop:rel_Generator_RelationVarName="relationservices_trips_txt" msprop:rel_Generator_UserParentTable="services" msprop:rel_Generator_ParentPropName="ServicesRow">
       <xs:selector xpath=".//mstns:trips.txt" />
       <xs:field xpath="mstns:service_id" />
     </xs:keyref>
@@ -267,7 +267,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="stops_transfers_from" msdata:parent="stops.txt" msdata:child="transfers.txt" msdata:parentkey="stop_id" msdata:childkey="from_stop_id" msprop:Generator_UserChildTable="transfers.txt" msprop:Generator_ChildPropName="GetTransfersFrom" msprop:Generator_UserRelationName="stops_transfers_from" msprop:Generator_RelationVarName="relationstops_transfers_from" msprop:Generator_UserParentTable="stops.txt" msprop:Generator_ParentPropName="stopsRowBystops_transfers_from" />
+      <msdata:Relationship name="stops_transfers_from" msdata:parent="stops.txt" msdata:child="transfers.txt" msdata:parentkey="stop_id" msdata:childkey="from_stop_id" msprop:Generator_UserChildTable="transfers.txt" msprop:Generator_ChildPropName="GetTransfersFrom" msprop:Generator_UserRelationName="stops_transfers_from" msprop:Generator_RelationVarName="relationstops_transfers_from" msprop:Generator_UserParentTable="stops.txt" msprop:Generator_ParentPropName="StopsRowByTransfersFrom" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

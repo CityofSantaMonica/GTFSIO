@@ -38,7 +38,7 @@ namespace GTFSIO
             textFieldParser.SetDelimiters(Delimiters);
             textFieldParser.HasFieldsEnclosedInQuotes = true;
             var fieldReferences = textFieldParser.ReadFields();
-            var serviceTable = table.ParentRelations.OfType<DataRelation>().Where(item => item.ParentTable.TableName.Equals("services")).Select(item => item.ParentTable as FeedTables.servicesDataTable).SingleOrDefault();
+            var serviceTable = table.ParentRelations.OfType<DataRelation>().Where(item => item.ParentTable.TableName.Equals("services")).Select(item => item.ParentTable as FeedTables.ServicesDataTable).SingleOrDefault();
 
             while (!textFieldParser.EndOfData)
             {
@@ -64,7 +64,7 @@ namespace GTFSIO
                     var service_id = newRow["service_id"].ToString();
                     var service = serviceTable.FindByservice_id(service_id);
                     if (service == null)
-                        serviceTable.AddservicesRow(service_id);
+                        serviceTable.AddServicesRow(service_id);
                 }
                 try
                 {
