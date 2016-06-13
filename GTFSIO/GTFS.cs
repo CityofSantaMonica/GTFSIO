@@ -53,6 +53,10 @@ namespace GTFSIO
         {
             get { return FeedTables.shapes; }
         }
+        public FeedTables.ServicesDataTable services
+        {
+            get { return FeedTables.services; }
+        }
         public FeedTables.StopsDataTable stops
         {
             get { return FeedTables.stops; }
