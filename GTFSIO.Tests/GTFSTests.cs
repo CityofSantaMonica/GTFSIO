@@ -273,6 +273,7 @@ namespace GTFSIO.Tests
             Assert.NotNull(gtfs.feed_info);
             Assert.NotNull(gtfs.frequencies);
             Assert.NotNull(gtfs.routes);
+            Assert.NotNull(gtfs.services);
             Assert.NotNull(gtfs.shapes);
             Assert.NotNull(gtfs.stops);
             Assert.NotNull(gtfs.stop_times);
@@ -315,6 +316,7 @@ namespace GTFSIO.Tests
             AssertFareRules(gtfs);
             AssertFeedInfo(gtfs);
             AssertRoutes(gtfs);
+            AssertServices(gtfs);
             AssertShapes(gtfs);
             AssertStops(gtfs);
             AssertStopTimes(gtfs);
@@ -339,7 +341,7 @@ namespace GTFSIO.Tests
             Assert.AreEqual("http://www.example.com/fares", row.agency_fare_url);
         }
 
-        readonly string[] knownServices = { "1", "2", "3" };
+        readonly string[] knownServices = { "1", "2", "3", "4" };
 
         private void AssertCalendar(GTFS gtfs)
         {
@@ -375,7 +377,12 @@ namespace GTFSIO.Tests
             var table = gtfs.calendar_dates;
 
             Assert.NotNull(table);
-            Assert.AreEqual(3, table.Count);
+            Assert.AreEqual(4, table.Count);
+
+            foreach (var row in table)
+            {
+                CollectionAssert.Contains(knownServices, row.service_id);
+            }
         }
 
         private void AssertFareAttributes(GTFS gtfs)
@@ -438,6 +445,19 @@ namespace GTFSIO.Tests
                 Assert.AreEqual(String.Format("http://example.com/routes/{0}", row.route_short_name), row.route_url);
                 Assert.IsNotEmpty(row.route_color);
                 Assert.IsNotEmpty(row.route_text_color);
+            }
+        }
+
+        private void AssertServices(GTFS gtfs)
+        {
+            var table = gtfs.services;
+
+            Assert.NotNull(table);
+            Assert.AreEqual(4, table.Count);
+
+            foreach (var row in table)
+            {
+                CollectionAssert.Contains(knownServices, row.service_id);
             }
         }
 

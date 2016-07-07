@@ -38,6 +38,7 @@ namespace GTFSIO
             textFieldParser.SetDelimiters(Delimiters);
             textFieldParser.HasFieldsEnclosedInQuotes = true;
             var fieldReferences = textFieldParser.ReadFields();
+            var serviceTable = table.ParentRelations.OfType<DataRelation>().Where(item => item.ParentTable.TableName.Equals("services")).Select(item => item.ParentTable as FeedTables.ServicesDataTable).SingleOrDefault();
 
             while (!textFieldParser.EndOfData)
             {
@@ -58,6 +59,13 @@ namespace GTFSIO
                         }
                     }
                 }
+                if (serviceTable != null)
+                {
+                    var service_id = newRow["service_id"].ToString();
+                    var service = serviceTable.FindByservice_id(service_id);
+                    if (service == null)
+                        serviceTable.AddServicesRow(service_id);
+                }
                 try
                 {
                     table.Rows.Add(newRow);
@@ -75,9 +83,9 @@ namespace GTFSIO
         /// <param name="Delimiters">The delimiter string used to separate data fields.</param>
         public static void WriteCSV(this DataTable table, StreamWriter streamWriter, String Delimiters = ",")
         {
-            var rowFormat = 
+            var rowFormat =
                 String.Join(
-                    Delimiters, 
+                    Delimiters,
                     table.DataColumns()
                          .Select((_, index) => "{" + index.ToString() + "}")
                          .ToArray()

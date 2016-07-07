@@ -53,6 +53,10 @@ namespace GTFSIO
         {
             get { return FeedTables.shapes; }
         }
+        public FeedTables.ServicesDataTable services
+        {
+            get { return FeedTables.services; }
+        }
         public FeedTables.StopsDataTable stops
         {
             get { return FeedTables.stops; }
@@ -120,7 +124,7 @@ namespace GTFSIO
             //get an ordering for import that maintains foreign key relationships
             //and discards tables that can't be imported
             var orderedNames = TableNamesOrderedByDependency(feedFiles.Keys.ToArray());
-            
+
             foreach (var tableName in orderedNames)
             {
                 Console.WriteLine("Reading table {0}", tableName);
@@ -209,6 +213,17 @@ namespace GTFSIO
             var workingNames = tableNames.ToList();
             var sortedNames = new Queue<String>();
 
+            // front-load services and calendar.txt and/or calendar_dates.txt so that service_ids are available first
+            sortedNames.Enqueue("services");
+            foreach (var workingName in new String[] { "calendar.txt", "calendar_dates.txt" })
+            {
+                if (workingNames.Contains(workingName))
+                {
+                    sortedNames.Enqueue(workingName);
+                    workingNames.Remove(workingName);
+                }
+            }
+
             while (workingNames.Count > 0)
             {
                 foreach (var workingName in workingNames)
@@ -237,6 +252,7 @@ namespace GTFSIO
                 }
             }
 
+            sortedNames.Dequeue();
             return sortedNames.ToArray();
         }
 
