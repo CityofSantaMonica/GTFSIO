@@ -157,7 +157,7 @@ namespace GTFSIO
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0))
+                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
                     {
                         var entry = archive.CreateEntry(table.TableName);
                         using (var entryStream = entry.Open())
@@ -189,7 +189,7 @@ namespace GTFSIO
                 }
                 if (Directory.Exists(path))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0))
+                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
