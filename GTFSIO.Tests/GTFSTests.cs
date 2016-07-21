@@ -213,7 +213,39 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Write")]
-        public void Save_WithCustomTables_WritesXsd()
+        public void Save_ExcludesTableData_WithExtendedProperty_ExcludeFromDataExport()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
+
+            try
+            {
+                var originalGtfs = CreateGTFSWithCustomTables();
+
+                //create tables with the exclusion property, add some data
+                var excludedTable1 = new DataTable("exclude.csv");
+                excludedTable1.ExtendedProperties.Add(GTFS.ExcludeFromDataExportKey, "true");
+                excludedTable1.Columns.Add(new DataColumn("field1"));
+                excludedTable1.Rows.Add("value1");
+
+                originalGtfs.Add(excludedTable1);
+
+                //save this GTFS
+                originalGtfs.Save(di.FullName);
+                //and read the saved copy back into a new GTFS
+                var newGtfs = new GTFS(di.FullName);
+
+                Assert.AreEqual(0, newGtfs[excludedTable1.TableName].Rows.Count);
+
+            }
+            finally
+            {
+                Directory.Delete(di.FullName, true);
+            }
+        }
+
+        [Test]
+        [Category("Write")]
+        public void Save_WithCustomTables_WritesSchema()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
 
@@ -221,20 +253,53 @@ namespace GTFSIO.Tests
             {
                 //create the GTFS with custom tables and save it out to the directory
                 var gtfs = CreateGTFSWithCustomTables();
+
                 gtfs.Save(di.FullName);
 
-                //assert that the XSD was written
-                string xsdPath = Path.Combine(di.FullName, GTFS.OptionalSchemaName);
-                Assert.True(File.Exists(xsdPath));
+                //assert that the schema was written
+                string schemaPath = Path.Combine(di.FullName, GTFS.OptionalSchemaName);
+                Assert.True(File.Exists(schemaPath));
 
                 //and validate the expected table structure
                 var newDataSet = new DataSet();
-                newDataSet.ReadXmlSchema(xsdPath);
+                newDataSet.ReadXmlSchema(schemaPath);
 
                 var table1 = newDataSet.Tables["test1.csv"];
                 var table2 = newDataSet.Tables["test2.txt"];
 
                 AssertCustomTables(table1, table2, schemaOnly: true);
+            }
+            finally
+            {
+                Directory.Delete(di.FullName, true);
+            }
+        }
+
+        [Test]
+        [Category("Write")]
+        public void Save_ExcludesTablesFromSchema_WithExtendedProperty_ExcludeFromSchemaExport()
+        {
+            var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
+
+            try
+            {
+                //create the GTFS with custom tables and save it out to the directory
+                var gtfs = CreateGTFSWithCustomTables();
+
+                //this table should not be represented in the resulting schema
+                var excludedTable = new DataTable("exclude.csv");
+                excludedTable.ExtendedProperties.Add(GTFS.ExcludeFromSchemaExportKey, "true");
+                gtfs.Add(excludedTable);
+
+                gtfs.Save(di.FullName);
+
+                string schemaPath = Path.Combine(di.FullName, GTFS.OptionalSchemaName);
+
+                //and validate the expected table structure
+                var newDataSet = new DataSet();
+                newDataSet.ReadXmlSchema(schemaPath);
+
+                Assert.IsNull(newDataSet.Tables[excludedTable.TableName]);
             }
             finally
             {
@@ -261,7 +326,7 @@ namespace GTFSIO.Tests
             return gtfs;
         }
 
-        //Asserts that the 13 GTFS tables are not null
+        //Asserts that the GTFS tables are not null
         private void AssertFeedTablesInitialized(GTFS gtfs)
         {
             Assert.NotNull(gtfs.FeedTables);
@@ -307,8 +372,6 @@ namespace GTFSIO.Tests
         //Asserts the existence of (GTFS spec) data found in Data/GTFS/ and Data/GTFS.zip
         private void AssertSpecGTFS(GTFS gtfs)
         {
-            Assert.GreaterOrEqual(gtfs.DataTables.Count(), 13);
-
             AssertAgency(gtfs);
             AssertCalendar(gtfs);
             AssertCalendarDates(gtfs);

@@ -12,10 +12,13 @@ namespace GTFSIO
     /// </summary>
     public class GTFS
     {
-        public static String OptionalSchemaName { get { return "gtfs.xsd"; } }
+        public static string ExcludeFromDataExportKey { get { return "ExcludeFromDataExport"; } }
+        public static string ExcludeFromSchemaExportKey { get { return "ExcludeFromSchemaExport"; } }
+        public static string OptionalSchemaName { get { return "gtfs.xsd"; } }
+        
 
         public FeedTables FeedTables { get; set; }
-        public String Path { get; set; }
+        public string Path { get; set; }
 
         public FeedTables.AgencyDataTable agency
         {
@@ -157,7 +160,7 @@ namespace GTFSIO
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
+                    foreach (var table in TablesForDataExport())
                     {
                         var entry = archive.CreateEntry(table.TableName);
                         using (var entryStream = entry.Open())
@@ -175,7 +178,7 @@ namespace GTFSIO
                         {
                             using (var streamWriter = new StreamWriter(entryStream))
                             {
-                                FeedTables.WriteXmlSchema(streamWriter);
+                                DataSetForSchemaExport().WriteXmlSchema(streamWriter);
                             }
                         }
                     }
@@ -189,7 +192,7 @@ namespace GTFSIO
                 }
                 if (Directory.Exists(path))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
+                    foreach (var table in TablesForDataExport())
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
@@ -200,7 +203,7 @@ namespace GTFSIO
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, OptionalSchemaName)))
                         {
-                            FeedTables.WriteXmlSchema(streamWriter);
+                            DataSetForSchemaExport().WriteXmlSchema(streamWriter);
                         }
                     }
                 }
@@ -256,14 +259,34 @@ namespace GTFSIO
             return sortedNames.ToArray();
         }
 
-        //tables in FeedTables with structure defined in FeedTables.xsd
-        //will have a property with the following key
-        private static readonly String GeneratedTableKey = "Generator_UserTableName";
-
+        //get the collection of tables containing data that should be exported
+        private IEnumerable<DataTable> TablesForDataExport()
+        {
+            return DataTables.Where(table => table.Rows.Count > 0 && (!table.ExtendedProperties.ContainsKey(ExcludeFromDataExportKey) || table.ExtendedProperties[ExcludeFromDataExportKey].ToString().Equals("false", StringComparison.OrdinalIgnoreCase)));
+        }
+        
         //determine, based on the current state of the FeedTables, if a schema file should be written
         private bool ShouldCreateSchema()
         {
-            return !DataTables.All(item => item.ExtendedProperties.ContainsKey(GeneratedTableKey));
+            //tables in FeedTables with structure defined in FeedTables.xsd
+            //have an extended property with the following key
+            string key = "GtfsSpecTable";
+
+            return !DataTables.All(item => item.ExtendedProperties.ContainsKey(key));
+        }
+
+        //get a representation of this GTFS dataset appropriate for schema export
+        private DataSet DataSetForSchemaExport()
+        {
+            //get clones of the tables for export (structure only)
+            var tablesForExport = DataTables.Where(table => !table.ExtendedProperties.ContainsKey(ExcludeFromSchemaExportKey) || table.ExtendedProperties[ExcludeFromSchemaExportKey].ToString().Equals("false", StringComparison.OrdinalIgnoreCase))
+                                            .Select(table => table.Clone())
+                                            .ToArray();
+
+            var exportDataSet = new DataSet(FeedTables.DataSetName);
+            exportDataSet.Tables.AddRange(tablesForExport);
+
+            return exportDataSet;
         }
     }
 }
