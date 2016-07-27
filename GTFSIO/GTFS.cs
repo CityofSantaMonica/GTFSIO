@@ -145,8 +145,20 @@ namespace GTFSIO
         /// Add a <see cref="DataTable"/> to this object's collection.
         /// </summary>
         /// <param name="table">The <see cref="DataTable"/> to add.</param>
-        public void Add(DataTable table)
+        /// <param name="excludeFromDataExport">True to exclude data from this table when <see cref="Save(string)"/> is called.</param>
+        /// <param name="excludeFromSchemaExport">True to exclude this table's schema when <see cref="Save(string)"/> is called.</param>
+        public void Add(DataTable table, bool excludeFromDataExport = false, bool excludeFromSchemaExport = false)
         {
+            if (excludeFromDataExport)
+            {
+                table.ExtendedProperties[ExcludeFromDataExportKey] = true;
+            }
+
+            if (excludeFromSchemaExport)
+            {
+                table.ExtendedProperties[ExcludeFromSchemaExportKey] = true;
+            }
+
             FeedTables.Tables.Add(table);
         }
 

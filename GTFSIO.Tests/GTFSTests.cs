@@ -7,6 +7,7 @@ using System.Linq;
 namespace GTFSIO.Tests
 {
     [TestFixture]
+    [Category("GTFS")]
     public class GTFSTests
     {
         //the directory where this project lives
@@ -182,6 +183,30 @@ namespace GTFSIO.Tests
         }
 
         [Test]
+        public void Add_ExcludeFromDataExport_SetsExtendedProperty()
+        {
+            var gtfs = new GTFS();
+            var table = new DataTable("test");
+
+            gtfs.Add(table, excludeFromDataExport: true);
+
+            Assert.True(table.ExtendedProperties.Contains(GTFS.ExcludeFromDataExportKey));
+            StringAssert.AreEqualIgnoringCase("true", table.ExtendedProperties[GTFS.ExcludeFromDataExportKey].ToString());
+        }
+
+        [Test]
+        public void Add_ExcludeFromSchemaExport_SetsExtendedProperty()
+        {
+            var gtfs = new GTFS();
+            var table = new DataTable("test");
+
+            gtfs.Add(table, excludeFromSchemaExport: true);
+
+            Assert.True(table.ExtendedProperties.Contains(GTFS.ExcludeFromSchemaExportKey));
+            StringAssert.AreEqualIgnoringCase("true", table.ExtendedProperties[GTFS.ExcludeFromSchemaExportKey].ToString());
+        }
+
+        [Test]
         [Category("Read")]
         [Category("Write")]
         public void Save_CanRoundTrip_CustomTables()
@@ -213,7 +238,7 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Write")]
-        public void Save_ExcludesTableData_WithExtendedProperty_ExcludeFromDataExport()
+        public void Save_ExcludesTableData_WithExtendedProperty()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
 
@@ -277,7 +302,7 @@ namespace GTFSIO.Tests
 
         [Test]
         [Category("Write")]
-        public void Save_ExcludesTablesFromSchema_WithExtendedProperty_ExcludeFromSchemaExport()
+        public void Save_ExcludesTablesFromSchema_WithExtendedProperty()
         {
             var di = new DirectoryInfo(Path.Combine(_baseDirectory, "Data", "Save"));
 
