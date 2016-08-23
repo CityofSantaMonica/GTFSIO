@@ -151,13 +151,13 @@ namespace GTFSIO
         /// Write the current state of <see cref="FeedTables"/> to the given path.
         /// </summary>
         /// <param name="path">The full path to a .zip file or writeable directory.</param>
-        public void Save(String path)
+        public void Save(String path, Boolean writeEmptyTables = false)
         {
             if (path.ToLower().EndsWith(".zip"))
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
+                    foreach (var table in DataTables.Where(item => (item.Rows.Count > 0 || writeEmptyTables) && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
                     {
                         var entry = archive.CreateEntry(table.TableName);
                         using (var entryStream = entry.Open())
@@ -189,7 +189,7 @@ namespace GTFSIO
                 }
                 if (Directory.Exists(path))
                 {
-                    foreach (var table in DataTables.Where(item => item.Rows.Count > 0 && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
+                    foreach (var table in DataTables.Where(item => (item.Rows.Count > 0 || writeEmptyTables) && (item.TableName.EndsWith(".csv") || item.TableName.EndsWith(".txt"))))
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
