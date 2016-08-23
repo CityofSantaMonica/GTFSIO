@@ -119,6 +119,8 @@ namespace GTFSIO
                             case "Double":
                                 columns.Add(String.Format("{0:0.######}", row[column.Ordinal]));
                                 break;
+                            case "Byte":
+                            case "Int16":
                             case "Int32":
                             case "String":
                                 if (row[column.Ordinal].ToString().Contains(',') || row[column.Ordinal].ToString().Contains('"'))
@@ -137,6 +139,8 @@ namespace GTFSIO
                                     var seconds = timeSpan.Seconds;
                                     columns.Add(String.Format("{0:D2}:{1:D2}:{2:D2}", Convert.ToInt32(Math.Floor(hours)), minutes, seconds));
                                 }
+                                break;
+                            default:
                                 break;
                         }
                 });

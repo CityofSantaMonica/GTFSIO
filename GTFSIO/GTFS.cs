@@ -15,7 +15,6 @@ namespace GTFSIO
         public static string ExcludeFromDataExportKey { get { return "ExcludeFromDataExport"; } }
         public static string ExcludeFromSchemaExportKey { get { return "ExcludeFromSchemaExport"; } }
         public static string OptionalSchemaName { get { return "gtfs.xsd"; } }
-        
 
         public FeedTables FeedTables { get; set; }
         public string Path { get; set; }
@@ -166,13 +165,13 @@ namespace GTFSIO
         /// Write the current state of <see cref="FeedTables"/> to the given path.
         /// </summary>
         /// <param name="path">The full path to a .zip file or writeable directory.</param>
-        public void Save(String path)
+        public void Save(String path, bool writeEmptyTables = false)
         {
             if (path.ToLower().EndsWith(".zip"))
             {
                 using (var archive = new ZipArchive(File.OpenWrite(path), ZipArchiveMode.Create))
                 {
-                    foreach (var table in TablesForDataExport())
+                    foreach (var table in TablesForDataExport(writeEmptyTables))
                     {
                         var entry = archive.CreateEntry(table.TableName);
                         using (var entryStream = entry.Open())
@@ -204,7 +203,7 @@ namespace GTFSIO
                 }
                 if (Directory.Exists(path))
                 {
-                    foreach (var table in TablesForDataExport())
+                    foreach (var table in TablesForDataExport(writeEmptyTables))
                     {
                         using (var streamWriter = File.CreateText(System.IO.Path.Combine(path, table.TableName)))
                         {
@@ -272,11 +271,11 @@ namespace GTFSIO
         }
 
         //get the collection of tables containing data that should be exported
-        private IEnumerable<DataTable> TablesForDataExport()
+        private IEnumerable<DataTable> TablesForDataExport(bool writeEmptyTables)
         {
-            return DataTables.Where(table => table.Rows.Count > 0 && (!table.ExtendedProperties.ContainsKey(ExcludeFromDataExportKey) || table.ExtendedProperties[ExcludeFromDataExportKey].ToString().Equals("false", StringComparison.OrdinalIgnoreCase)));
+            return DataTables.Where(table => (writeEmptyTables || table.Rows.Count > 0) && (!table.ExtendedProperties.ContainsKey(ExcludeFromDataExportKey) || table.ExtendedProperties[ExcludeFromDataExportKey].ToString().Equals("false", StringComparison.OrdinalIgnoreCase)));
         }
-        
+
         //determine, based on the current state of the FeedTables, if a schema file should be written
         private bool ShouldCreateSchema()
         {
