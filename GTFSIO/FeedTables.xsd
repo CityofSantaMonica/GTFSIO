@@ -12,10 +12,10 @@
   <xs:element name="FeedTables" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FeedTables" msprop:Generator_UserDSName="FeedTables">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="agency.txt" msprop:Generator_TableClassName="AgencyDataTable" msprop:Generator_TableVarName="_agency" msprop:Generator_RowChangedName="AgencyRowChanged" msprop:Generator_TablePropName="agency" msprop:Generator_RowDeletingName="AgencyRowDeleting" msprop:Generator_RowChangingName="AgencyRowChanging" msprop:Generator_RowEvHandlerName="AgencyRowChangeEventHandler" msprop:Generator_RowDeletedName="AgencyRowDeleted" msprop:Generator_RowClassName="AgencyRow" msprop:Generator_UserTableName="agency.txt" msprop:Generator_RowEvArgName="AgencyRowChangeEvent" msprop:GtfsSpecTable="true">
+        <xs:element name="agency.txt" msprop:Generator_TableClassName="AgencyDataTable" msprop:Generator_TableVarName="_agency" msprop:GtfsSpecTable="true" msprop:Generator_TablePropName="agency" msprop:Generator_RowDeletingName="AgencyRowDeleting" msprop:Generator_RowChangingName="AgencyRowChanging" msprop:Generator_RowEvHandlerName="AgencyRowChangeEventHandler" msprop:Generator_RowDeletedName="AgencyRowDeleted" msprop:Generator_UserTableName="agency.txt" msprop:Generator_RowChangedName="AgencyRowChanged" msprop:Generator_RowEvArgName="AgencyRowChangeEvent" msprop:Generator_RowClassName="AgencyRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="agency_id" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="agency_id" msprop:Generator_ColumnVarNameInTable="_AgencyIdColumn" msprop:Generator_ColumnPropNameInTable="AgencyIdColumn" msprop:Generator_UserColumnName="agency_id" type="xs:string" />
+              <xs:element name="agency_id" msprop:Generator_ColumnVarNameInTable="_AgencyIdColumn" msprop:Generator_ColumnPropNameInRow="agency_id" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInTable="AgencyIdColumn" msprop:Generator_UserColumnName="agency_id" type="xs:string" />
               <xs:element name="agency_name" msprop:Generator_ColumnVarNameInTable="_AgencyNameColumn" msprop:Generator_ColumnPropNameInRow="agency_name" msprop:Generator_ColumnPropNameInTable="AgencyNameColumn" msprop:Generator_UserColumnName="agency_name" type="xs:string" minOccurs="0" />
               <xs:element name="agency_url" msprop:Generator_ColumnVarNameInTable="_AgencyUrlColumn" msprop:Generator_ColumnPropNameInRow="agency_url" msprop:Generator_ColumnPropNameInTable="AgencyUrlColumn" msprop:Generator_UserColumnName="agency_url" type="xs:string" minOccurs="0" />
               <xs:element name="agency_timezone" msprop:Generator_ColumnVarNameInTable="_AgencyTimeZoneColumn" msprop:Generator_ColumnPropNameInRow="agency_timezone" msprop:Generator_ColumnPropNameInTable="AgencyTimeZoneColumn" msprop:Generator_UserColumnName="agency_timezone" type="xs:string" minOccurs="0" />
@@ -25,7 +25,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="stops.txt" msprop:Generator_TableClassName="StopsDataTable" msprop:Generator_TableVarName="_stops" msprop:Generator_RowChangedName="StopsRowChanged" msprop:Generator_TablePropName="stops" msprop:Generator_RowDeletingName="StopsRowDeleting" msprop:Generator_RowChangingName="StopsRowChanging" msprop:Generator_RowEvHandlerName="StopsRowChangeEventHandler" msprop:Generator_RowDeletedName="StopsRowDeleted" msprop:Generator_RowClassName="StopsRow" msprop:Generator_UserTableName="stops.txt" msprop:Generator_RowEvArgName="StopsRowChangeEvent" msprop:GtfsSpecTable="true">
+        <xs:element name="stops.txt" msprop:Generator_TableClassName="StopsDataTable" msprop:Generator_TableVarName="_stops" msprop:GtfsSpecTable="true" msprop:Generator_TablePropName="stops" msprop:Generator_RowDeletingName="StopsRowDeleting" msprop:Generator_RowChangingName="StopsRowChanging" msprop:Generator_RowEvHandlerName="StopsRowChangeEventHandler" msprop:Generator_RowDeletedName="StopsRowDeleted" msprop:Generator_UserTableName="stops.txt" msprop:Generator_RowChangedName="StopsRowChanged" msprop:Generator_RowEvArgName="StopsRowChangeEvent" msprop:Generator_RowClassName="StopsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="stop_id" msprop:Generator_ColumnVarNameInTable="_StopIdColumn" msprop:Generator_ColumnPropNameInRow="stop_id" msprop:Generator_ColumnPropNameInTable="StopIdColumn" msprop:Generator_UserColumnName="stop_id" type="xs:string" />
@@ -43,7 +43,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="routes.txt" msprop:Generator_TableClassName="RoutesDataTable" msprop:Generator_TableVarName="_routes" msprop:Generator_RowChangedName="RoutesRowChanged" msprop:Generator_TablePropName="routes" msprop:Generator_RowDeletingName="RoutesRowDeleting" msprop:Generator_RowChangingName="RoutesRowChanging" msprop:Generator_RowEvHandlerName="RoutesRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutesRowDeleted" msprop:Generator_RowClassName="RoutesRow" msprop:Generator_UserTableName="routes.txt" msprop:Generator_RowEvArgName="RoutesRowChangeEvent" msprop:GtfsSpecTable="true">
+        <xs:element name="routes.txt" msprop:Generator_TableClassName="RoutesDataTable" msprop:Generator_TableVarName="_routes" msprop:GtfsSpecTable="true" msprop:Generator_TablePropName="routes" msprop:Generator_RowDeletingName="RoutesRowDeleting" msprop:Generator_RowChangingName="RoutesRowChanging" msprop:Generator_RowEvHandlerName="RoutesRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutesRowDeleted" msprop:Generator_UserTableName="routes.txt" msprop:Generator_RowChangedName="RoutesRowChanged" msprop:Generator_RowEvArgName="RoutesRowChangeEvent" msprop:Generator_RowClassName="RoutesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="route_id" msprop:Generator_ColumnVarNameInTable="_RouteIdColumn" msprop:Generator_ColumnPropNameInRow="route_id" msprop:Generator_ColumnPropNameInTable="RouteIdColumn" msprop:Generator_UserColumnName="route_id" type="xs:string" />
@@ -58,7 +58,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="trips.txt" msprop:Generator_TableClassName="TripsDataTable" msprop:Generator_TableVarName="_trips" msprop:Generator_RowChangedName="TripsRowChanged" msprop:Generator_TablePropName="trips" msprop:Generator_RowDeletingName="TripsRowDeleting" msprop:Generator_RowChangingName="TripsRowChanging" msprop:Generator_RowEvHandlerName="TripsRowChangeEventHandler" msprop:Generator_RowDeletedName="TripsRowDeleted" msprop:Generator_RowClassName="TripsRow" msprop:Generator_UserTableName="trips.txt" msprop:Generator_RowEvArgName="TripsRowChangeEvent" msprop:GtfsSpecTable="true">
+        <xs:element name="trips.txt" msprop:Generator_TableClassName="TripsDataTable" msprop:Generator_TableVarName="_trips" msprop:GtfsSpecTable="true" msprop:Generator_TablePropName="trips" msprop:Generator_RowDeletingName="TripsRowDeleting" msprop:Generator_RowChangingName="TripsRowChanging" msprop:Generator_RowEvHandlerName="TripsRowChangeEventHandler" msprop:Generator_RowDeletedName="TripsRowDeleted" msprop:Generator_UserTableName="trips.txt" msprop:Generator_RowChangedName="TripsRowChanged" msprop:Generator_RowEvArgName="TripsRowChangeEvent" msprop:Generator_RowClassName="TripsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="route_id" msprop:Generator_ColumnVarNameInTable="_RouteIdColumn" msprop:Generator_ColumnPropNameInRow="route_id" msprop:Generator_ColumnPropNameInTable="RouteIdColumn" msprop:Generator_UserColumnName="route_id" type="xs:string" />
@@ -74,7 +74,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="stop_times.txt" msprop:Generator_TableClassName="StopTimesDataTable" msprop:Generator_TableVarName="_stop_times" msprop:Generator_TablePropName="stop_times" msprop:Generator_RowDeletingName="StopTimesRowDeleting" msprop:Generator_RowChangingName="StopTimesRowChanging" msprop:Generator_RowEvHandlerName="StopTimesRowChangeEventHandler" msprop:Generator_RowDeletedName="StopTimesRowDeleted" msprop:Generator_UserTableName="stop_times.txt" msprop:Generator_RowChangedName="StopTimesRowChanged" msprop:Generator_RowEvArgName="StopTimesRowChangeEvent" msprop:Generator_RowClassName="StopTimesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="stop_times.txt" msprop:Generator_TableClassName="StopTimesDataTable" msprop:Generator_TableVarName="_stop_times" msprop:Generator_RowChangedName="StopTimesRowChanged" msprop:Generator_TablePropName="stop_times" msprop:Generator_RowDeletingName="StopTimesRowDeleting" msprop:Generator_RowChangingName="StopTimesRowChanging" msprop:Generator_RowEvHandlerName="StopTimesRowChangeEventHandler" msprop:Generator_RowDeletedName="StopTimesRowDeleted" msprop:Generator_RowClassName="StopTimesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="stop_times.txt" msprop:Generator_RowEvArgName="StopTimesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="trip_id" msprop:Generator_ColumnVarNameInTable="_TripIdColumn" msprop:Generator_ColumnPropNameInRow="trip_id" msprop:Generator_ColumnPropNameInTable="TripIdColumn" msprop:Generator_UserColumnName="trip_id" type="xs:string" />
@@ -90,7 +90,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="calendar.txt" msprop:Generator_TableClassName="CalendarDataTable" msprop:Generator_TableVarName="_calendar" msprop:Generator_TablePropName="calendar" msprop:Generator_RowDeletingName="CalendarRowDeleting" msprop:Generator_RowChangingName="CalendarRowChanging" msprop:Generator_RowEvHandlerName="CalendarRowChangeEventHandler" msprop:Generator_RowDeletedName="CalendarRowDeleted" msprop:Generator_UserTableName="calendar.txt" msprop:Generator_RowChangedName="CalendarRowChanged" msprop:Generator_RowEvArgName="CalendarRowChangeEvent" msprop:Generator_RowClassName="CalendarRow" msprop:GtfsSpecTable="true">
+        <xs:element name="calendar.txt" msprop:Generator_TableClassName="CalendarDataTable" msprop:Generator_TableVarName="_calendar" msprop:Generator_RowChangedName="CalendarRowChanged" msprop:Generator_TablePropName="calendar" msprop:Generator_RowDeletingName="CalendarRowDeleting" msprop:Generator_RowChangingName="CalendarRowChanging" msprop:Generator_RowEvHandlerName="CalendarRowChangeEventHandler" msprop:Generator_RowDeletedName="CalendarRowDeleted" msprop:Generator_RowClassName="CalendarRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="calendar.txt" msprop:Generator_RowEvArgName="CalendarRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="service_id" msprop:Generator_ColumnVarNameInTable="_ServiceIdColumn" msprop:Generator_ColumnPropNameInRow="service_id" msprop:Generator_ColumnPropNameInTable="ServiceIdColumn" msprop:Generator_UserColumnName="service_id" type="xs:string" />
@@ -106,7 +106,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="calendar_dates.txt" msprop:Generator_TableClassName="CalendarDatesDataTable" msprop:Generator_TableVarName="_calendar_dates" msprop:Generator_TablePropName="calendar_dates" msprop:Generator_RowDeletingName="CalendarDatesRowDeleting" msprop:Generator_RowChangingName="CalendarDatesRowChanging" msprop:Generator_RowEvHandlerName="CalendarDatesRowChangeEventHandler" msprop:Generator_RowDeletedName="CalendarDatesRowDeleted" msprop:Generator_UserTableName="calendar_dates.txt" msprop:Generator_RowChangedName="CalendarDatesRowChanged" msprop:Generator_RowEvArgName="CalendarDatesRowChangeEvent" msprop:Generator_RowClassName="CalendarDatesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="calendar_dates.txt" msprop:Generator_TableClassName="CalendarDatesDataTable" msprop:Generator_TableVarName="_calendar_dates" msprop:Generator_RowChangedName="CalendarDatesRowChanged" msprop:Generator_TablePropName="calendar_dates" msprop:Generator_RowDeletingName="CalendarDatesRowDeleting" msprop:Generator_RowChangingName="CalendarDatesRowChanging" msprop:Generator_RowEvHandlerName="CalendarDatesRowChangeEventHandler" msprop:Generator_RowDeletedName="CalendarDatesRowDeleted" msprop:Generator_RowClassName="CalendarDatesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="calendar_dates.txt" msprop:Generator_RowEvArgName="CalendarDatesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="service_id" msprop:Generator_ColumnVarNameInTable="_ServiceIdColumn" msprop:Generator_ColumnPropNameInRow="service_id" msprop:Generator_ColumnPropNameInTable="ServiceIdColumn" msprop:Generator_UserColumnName="service_id" type="xs:string" minOccurs="0" />
@@ -115,7 +115,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="fare_attributes.txt" msprop:Generator_TableClassName="FareAttributesDataTable" msprop:Generator_TableVarName="_fare_attributes" msprop:Generator_TablePropName="fare_attributes" msprop:Generator_RowDeletingName="FareAttributesRowDeleting" msprop:Generator_RowChangingName="FareAttributesRowChanging" msprop:Generator_RowEvHandlerName="FareAttributesRowChangeEventHandler" msprop:Generator_RowDeletedName="FareAttributesRowDeleted" msprop:Generator_UserTableName="fare_attributes.txt" msprop:Generator_RowChangedName="FareAttributesRowChanged" msprop:Generator_RowEvArgName="FareAttributesRowChangeEvent" msprop:Generator_RowClassName="FareAttributesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="fare_attributes.txt" msprop:Generator_TableClassName="FareAttributesDataTable" msprop:Generator_TableVarName="_fare_attributes" msprop:Generator_RowChangedName="FareAttributesRowChanged" msprop:Generator_TablePropName="fare_attributes" msprop:Generator_RowDeletingName="FareAttributesRowDeleting" msprop:Generator_RowChangingName="FareAttributesRowChanging" msprop:Generator_RowEvHandlerName="FareAttributesRowChangeEventHandler" msprop:Generator_RowDeletedName="FareAttributesRowDeleted" msprop:Generator_RowClassName="FareAttributesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="fare_attributes.txt" msprop:Generator_RowEvArgName="FareAttributesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="fare_id" msprop:Generator_ColumnVarNameInTable="_FareIdColumn" msprop:Generator_ColumnPropNameInRow="fare_id" msprop:Generator_ColumnPropNameInTable="FareIdColumn" msprop:Generator_UserColumnName="fare_id" type="xs:string" />
@@ -127,7 +127,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="fare_rules.txt" msprop:Generator_TableClassName="FareRulesDataTable" msprop:Generator_TableVarName="_fare_rules" msprop:Generator_TablePropName="fare_rules" msprop:Generator_RowDeletingName="FareRulesRowDeleting" msprop:Generator_RowChangingName="FareRulesRowChanging" msprop:Generator_RowEvHandlerName="FareRulesRowChangeEventHandler" msprop:Generator_RowDeletedName="FareRulesRowDeleted" msprop:Generator_UserTableName="fare_rules.txt" msprop:Generator_RowChangedName="FareRulesRowChanged" msprop:Generator_RowEvArgName="FareRulesRowChangeEvent" msprop:Generator_RowClassName="FareRulesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="fare_rules.txt" msprop:Generator_TableClassName="FareRulesDataTable" msprop:Generator_TableVarName="_fare_rules" msprop:Generator_RowChangedName="FareRulesRowChanged" msprop:Generator_TablePropName="fare_rules" msprop:Generator_RowDeletingName="FareRulesRowDeleting" msprop:Generator_RowChangingName="FareRulesRowChanging" msprop:Generator_RowEvHandlerName="FareRulesRowChangeEventHandler" msprop:Generator_RowDeletedName="FareRulesRowDeleted" msprop:Generator_RowClassName="FareRulesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="fare_rules.txt" msprop:Generator_RowEvArgName="FareRulesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="fare_id" msprop:Generator_ColumnVarNameInTable="_FareIdColumn" msprop:Generator_ColumnPropNameInRow="fare_id" msprop:Generator_ColumnPropNameInTable="FareIdColumn" msprop:Generator_UserColumnName="fare_id" type="xs:string" minOccurs="0" />
@@ -138,7 +138,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="shapes.txt" msprop:Generator_TableClassName="ShapesDataTable" msprop:Generator_TableVarName="_shapes" msprop:Generator_TablePropName="shapes" msprop:Generator_RowDeletingName="ShapesRowDeleting" msprop:Generator_RowChangingName="ShapesRowChanging" msprop:Generator_RowEvHandlerName="ShapesRowChangeEventHandler" msprop:Generator_RowDeletedName="ShapesRowDeleted" msprop:Generator_UserTableName="shapes.txt" msprop:Generator_RowChangedName="ShapesRowChanged" msprop:Generator_RowEvArgName="ShapesRowChangeEvent" msprop:Generator_RowClassName="ShapesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="shapes.txt" msprop:Generator_TableClassName="ShapesDataTable" msprop:Generator_TableVarName="_shapes" msprop:Generator_RowChangedName="ShapesRowChanged" msprop:Generator_TablePropName="shapes" msprop:Generator_RowDeletingName="ShapesRowDeleting" msprop:Generator_RowChangingName="ShapesRowChanging" msprop:Generator_RowEvHandlerName="ShapesRowChangeEventHandler" msprop:Generator_RowDeletedName="ShapesRowDeleted" msprop:Generator_RowClassName="ShapesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="shapes.txt" msprop:Generator_RowEvArgName="ShapesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="shape_id" msprop:Generator_ColumnVarNameInTable="_ShapeIdColumn" msprop:Generator_ColumnPropNameInRow="shape_id" msprop:Generator_ColumnPropNameInTable="ShapeIdColumn" msprop:Generator_UserColumnName="shape_id" type="xs:string" />
@@ -149,7 +149,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="frequencies.txt" msprop:Generator_TableClassName="FrequenciesDataTable" msprop:Generator_TableVarName="_frequencies" msprop:Generator_TablePropName="frequencies" msprop:Generator_RowDeletingName="FrequenciesRowDeleting" msprop:Generator_RowChangingName="FrequenciesRowChanging" msprop:Generator_RowEvHandlerName="FrequenciesRowChangeEventHandler" msprop:Generator_RowDeletedName="FrequenciesRowDeleted" msprop:Generator_UserTableName="frequencies.txt" msprop:Generator_RowChangedName="FrequenciesRowChanged" msprop:Generator_RowEvArgName="FrequenciesRowChangeEvent" msprop:Generator_RowClassName="FrequenciesRow" msprop:GtfsSpecTable="true">
+        <xs:element name="frequencies.txt" msprop:Generator_TableClassName="FrequenciesDataTable" msprop:Generator_TableVarName="_frequencies" msprop:Generator_RowChangedName="FrequenciesRowChanged" msprop:Generator_TablePropName="frequencies" msprop:Generator_RowDeletingName="FrequenciesRowDeleting" msprop:Generator_RowChangingName="FrequenciesRowChanging" msprop:Generator_RowEvHandlerName="FrequenciesRowChangeEventHandler" msprop:Generator_RowDeletedName="FrequenciesRowDeleted" msprop:Generator_RowClassName="FrequenciesRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="frequencies.txt" msprop:Generator_RowEvArgName="FrequenciesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="trip_id" msprop:Generator_ColumnVarNameInTable="_TripIdColumn" msprop:Generator_ColumnPropNameInRow="trip_id" msprop:Generator_ColumnPropNameInTable="TripIdColumn" msprop:Generator_UserColumnName="trip_id" type="xs:string" minOccurs="0" />
@@ -160,7 +160,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="transfers.txt" msprop:Generator_TableClassName="TransfersDataTable" msprop:Generator_TableVarName="_transfers" msprop:Generator_TablePropName="transfers" msprop:Generator_RowDeletingName="TransfersRowDeleting" msprop:Generator_RowChangingName="TransfersRowChanging" msprop:Generator_RowEvHandlerName="TransfersRowChangeEventHandler" msprop:Generator_RowDeletedName="TransfersRowDeleted" msprop:Generator_UserTableName="transfers.txt" msprop:Generator_RowChangedName="TransfersRowChanged" msprop:Generator_RowEvArgName="TransfersRowChangeEvent" msprop:Generator_RowClassName="TransfersRow" msprop:GtfsSpecTable="true">
+        <xs:element name="transfers.txt" msprop:Generator_TableClassName="TransfersDataTable" msprop:Generator_TableVarName="_transfers" msprop:Generator_RowChangedName="TransfersRowChanged" msprop:Generator_TablePropName="transfers" msprop:Generator_RowDeletingName="TransfersRowDeleting" msprop:Generator_RowChangingName="TransfersRowChanging" msprop:Generator_RowEvHandlerName="TransfersRowChangeEventHandler" msprop:Generator_RowDeletedName="TransfersRowDeleted" msprop:Generator_RowClassName="TransfersRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="transfers.txt" msprop:Generator_RowEvArgName="TransfersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="from_stop_id" msprop:Generator_ColumnVarNameInTable="_FromStopIdColumn" msprop:Generator_ColumnPropNameInRow="from_stop_id" msprop:Generator_ColumnPropNameInTable="FromStopIdColumn" msprop:Generator_UserColumnName="from_stop_id" type="xs:string" minOccurs="0" />
@@ -170,7 +170,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="feed_info.txt" msprop:Generator_TableClassName="FeedInfoDataTable" msprop:Generator_TableVarName="_feed_info" msprop:Generator_TablePropName="feed_info" msprop:Generator_RowDeletingName="FeedInfoRowDeleting" msprop:Generator_RowChangingName="FeedInfoRowChanging" msprop:Generator_RowEvHandlerName="FeedInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="FeedInfoRowDeleted" msprop:Generator_UserTableName="feed_info.txt" msprop:Generator_RowChangedName="FeedInfoRowChanged" msprop:Generator_RowEvArgName="FeedInfoRowChangeEvent" msprop:Generator_RowClassName="FeedInfoRow" msprop:GtfsSpecTable="true">
+        <xs:element name="feed_info.txt" msprop:Generator_TableClassName="FeedInfoDataTable" msprop:Generator_TableVarName="_feed_info" msprop:Generator_RowChangedName="FeedInfoRowChanged" msprop:Generator_TablePropName="feed_info" msprop:Generator_RowDeletingName="FeedInfoRowDeleting" msprop:Generator_RowChangingName="FeedInfoRowChanging" msprop:Generator_RowEvHandlerName="FeedInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="FeedInfoRowDeleted" msprop:Generator_RowClassName="FeedInfoRow" msprop:GtfsSpecTable="true" msprop:Generator_UserTableName="feed_info.txt" msprop:Generator_RowEvArgName="FeedInfoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="feed_publisher_name" msprop:Generator_ColumnVarNameInTable="_FeedPublisherNameColumn" msprop:Generator_ColumnPropNameInRow="feed_publisher_name" msprop:Generator_ColumnPropNameInTable="FeedPublisherNameColumn" msprop:Generator_UserColumnName="feed_publisher_name" type="xs:string" />
@@ -182,10 +182,86 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="services" msprop:Generator_TableClassName="ServicesDataTable" msprop:Generator_TableVarName="_services" msprop:Generator_RowChangedName="ServicesRowChanged" msprop:Generator_TablePropName="services" msprop:Generator_RowDeletingName="ServicesRowDeleting" msprop:Generator_RowChangingName="ServicesRowChanging" msprop:Generator_RowEvHandlerName="ServicesRowChangeEventHandler" msprop:Generator_RowDeletedName="ServicesRowDeleted" msprop:Generator_RowClassName="ServicesRow" msprop:Generator_UserTableName="services" msprop:Generator_RowEvArgName="ServicesRowChangeEvent" msprop:GtfsSpecTable="true" msprop:ExcludeFromDataExport="true">
+        <xs:element name="services" msprop:Generator_RowClassName="ServicesRow" msprop:Generator_UserTableName="services" msprop:Generator_RowDeletingName="ServicesRowDeleting" msprop:Generator_RowEvArgName="ServicesRowChangeEvent" msprop:Generator_TablePropName="services" msprop:Generator_TableVarName="_services" msprop:GtfsSpecTable="true" msprop:Generator_RowChangingName="ServicesRowChanging" msprop:Generator_TableClassName="ServicesDataTable" msprop:Generator_RowDeletedName="ServicesRowDeleted" msprop:ExcludeFromDataExport="true" msprop:Generator_RowChangedName="ServicesRowChanged" msprop:Generator_RowEvHandlerName="ServicesRowChangeEventHandler">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="service_id" msprop:Generator_ColumnVarNameInTable="_service_id" msprop:Generator_ColumnPropNameInRow="service_id" msprop:Generator_ColumnPropNameInTable="ServiceIdColumn" msprop:Generator_UserColumnName="service_id" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fare_containers.txt">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="fare_container_id" type="xs:string" minOccurs="0" />
+              <xs:element name="fare_container_name" type="xs:string" minOccurs="0" />
+              <xs:element name="minimum_initial_purchase" type="xs:decimal" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currency" type="xs:string" minOccurs="0" />
+              <xs:element name="rider_category_id" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fare_leg_rules.txt">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="leg_group_id" type="xs:string" minOccurs="0" />
+              <xs:element name="fare_leg_name" type="xs:string" minOccurs="0" />
+              <xs:element name="network_id" type="xs:string" minOccurs="0" />
+              <xs:element name="from_area_id" type="xs:string" minOccurs="0" />
+              <xs:element name="contains_area_id" type="xs:string" minOccurs="0" />
+              <xs:element name="to_area_id" type="xs:string" minOccurs="0" />
+              <xs:element name="is_symmetrical" type="xs:string" minOccurs="0" />
+              <xs:element name="from_timeframe_id" type="xs:string" minOccurs="0" />
+              <xs:element name="to_timeframe_id" type="xs:string" minOccurs="0" />
+              <xs:element name="min_distance" type="xs:int" minOccurs="0" />
+              <xs:element name="max_distance" type="xs:int" minOccurs="0" />
+              <xs:element name="distance_type" type="xs:string" minOccurs="0" />
+              <xs:element name="service_id" type="xs:string" minOccurs="0" />
+              <xs:element name="min_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="fare_product_id" type="xs:string" minOccurs="0" />
+              <xs:element name="fare_container_id" type="xs:string" minOccurs="0" />
+              <xs:element name="rider_category_id" type="xs:string" minOccurs="0" />
+              <xs:element name="eligible_cap_id" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currency" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fare_products.txt">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="fare_product_id" type="xs:string" minOccurs="0" />
+              <xs:element name="fare_product_name" type="xs:string" minOccurs="0" />
+              <xs:element name="rider_category_id" type="xs:string" minOccurs="0" />
+              <xs:element name="fare_container_id" type="xs:string" minOccurs="0" />
+              <xs:element name="bundle_amount" type="xs:int" minOccurs="0" />
+              <xs:element name="duration_start" type="xs:string" minOccurs="0" />
+              <xs:element name="duration_amount" type="xs:int" minOccurs="0" />
+              <xs:element name="duration_unit" type="xs:string" minOccurs="0" />
+              <xs:element name="duration_type" type="xs:string" minOccurs="0" />
+              <xs:element name="offset_amount" type="xs:int" minOccurs="0" />
+              <xs:element name="offset_unit" type="xs:string" minOccurs="0" />
+              <xs:element name="service_id" type="xs:string" minOccurs="0" />
+              <xs:element name="timeframe_id" type="xs:string" minOccurs="0" />
+              <xs:element name="timeframe_type" type="xs:string" minOccurs="0" />
+              <xs:element name="cap_required" type="xs:string" minOccurs="0" />
+              <xs:element name="eligible_cap_id" type="xs:string" minOccurs="0" />
+              <xs:element name="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="min_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="max_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="currency" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rider_categories.txt">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="rider_category_id" type="xs:string" minOccurs="0" />
+              <xs:element name="rider_category_name" type="xs:string" minOccurs="0" />
+              <xs:element name="min_age" type="xs:int" minOccurs="0" />
+              <xs:element name="max_age" type="xs:int" minOccurs="0" />
+              <xs:element name="eligibility_url" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -220,54 +296,54 @@
       <xs:selector xpath=".//mstns:services" />
       <xs:field xpath="mstns:service_id" />
     </xs:unique>
-    <xs:keyref name="stops_transfers_to" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="transfers.txt" msprop:rel_Generator_ChildPropName="GetTransfersTo" msprop:rel_Generator_UserRelationName="stops_transfers_to" msprop:rel_Generator_RelationVarName="relationstops_transfers_to" msprop:rel_Generator_UserParentTable="stops.txt" msprop:rel_Generator_ParentPropName="StopsRowByTransfersTo">
+    <xs:keyref name="stops_transfers_to" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="transfers.txt" msprop:rel_Generator_ChildPropName="GetTransfersTo" msprop:rel_Generator_UserRelationName="stops_transfers_to" msprop:rel_Generator_ParentPropName="StopsRowByTransfersTo" msprop:rel_Generator_RelationVarName="relationstops_transfers_to" msprop:rel_Generator_UserParentTable="stops.txt">
       <xs:selector xpath=".//mstns:transfers.txt" />
       <xs:field xpath="mstns:to_stop_id" />
     </xs:keyref>
-    <xs:keyref name="trips_frequencies" refer="trips.txt_Constraint1" msprop:rel_Generator_UserChildTable="frequencies.txt" msprop:rel_Generator_ChildPropName="GetTripFrequencies" msprop:rel_Generator_UserRelationName="trips_frequencies" msprop:rel_Generator_RelationVarName="relationtrips_frequencies" msprop:rel_Generator_UserParentTable="trips.txt" msprop:rel_Generator_ParentPropName="TripsRow">
+    <xs:keyref name="trips_frequencies" refer="trips.txt_Constraint1" msprop:rel_Generator_UserChildTable="frequencies.txt" msprop:rel_Generator_ChildPropName="GetTripFrequencies" msprop:rel_Generator_UserRelationName="trips_frequencies" msprop:rel_Generator_ParentPropName="TripsRow" msprop:rel_Generator_RelationVarName="relationtrips_frequencies" msprop:rel_Generator_UserParentTable="trips.txt">
       <xs:selector xpath=".//mstns:frequencies.txt" />
       <xs:field xpath="mstns:trip_id" />
     </xs:keyref>
-    <xs:keyref name="routes_fare_rules" refer="routes.txt_Constraint1" msprop:rel_Generator_UserChildTable="fare_rules.txt" msprop:rel_Generator_ChildPropName="GetFareRules" msprop:rel_Generator_UserRelationName="routes_fare_rules" msprop:rel_Generator_RelationVarName="relationroutes_fare_rules" msprop:rel_Generator_UserParentTable="routes.txt" msprop:rel_Generator_ParentPropName="RoutesRow">
-      <xs:selector xpath=".//mstns:fare_rules.txt" />
-      <xs:field xpath="mstns:route_id" />
-    </xs:keyref>
-    <xs:keyref name="fare_attributes_fare_rules" refer="fare_attributes.txt_Constraint1" msprop:rel_Generator_UserChildTable="fare_rules.txt" msprop:rel_Generator_ChildPropName="GetFareRules" msprop:rel_Generator_UserRelationName="fare_attributes_fare_rules" msprop:rel_Generator_RelationVarName="relationfare_attributes_fare_rules" msprop:rel_Generator_UserParentTable="fare_attributes.txt" msprop:rel_Generator_ParentPropName="FareAttributesRow">
+    <xs:keyref name="fare_attributes_fare_rules" refer="fare_attributes.txt_Constraint1" msprop:rel_Generator_UserChildTable="fare_rules.txt" msprop:rel_Generator_ChildPropName="GetFareRules" msprop:rel_Generator_UserRelationName="fare_attributes_fare_rules" msprop:rel_Generator_ParentPropName="FareAttributesRow" msprop:rel_Generator_RelationVarName="relationfare_attributes_fare_rules" msprop:rel_Generator_UserParentTable="fare_attributes.txt">
       <xs:selector xpath=".//mstns:fare_rules.txt" />
       <xs:field xpath="mstns:fare_id" />
     </xs:keyref>
-    <xs:keyref name="services_calendar_dates.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar_dates.txt" msprop:rel_Generator_ChildPropName="GetCalendarDates" msprop:rel_Generator_UserRelationName="services_calendar_dates.txt" msprop:rel_Generator_ParentPropName="ServicesRow" msprop:rel_Generator_RelationVarName="relationservices_calendar_dates_txt" msprop:rel_Generator_UserParentTable="services">
+    <xs:keyref name="routes_fare_rules" refer="routes.txt_Constraint1" msprop:rel_Generator_UserChildTable="fare_rules.txt" msprop:rel_Generator_ChildPropName="GetFareRules" msprop:rel_Generator_UserRelationName="routes_fare_rules" msprop:rel_Generator_ParentPropName="RoutesRow" msprop:rel_Generator_RelationVarName="relationroutes_fare_rules" msprop:rel_Generator_UserParentTable="routes.txt">
+      <xs:selector xpath=".//mstns:fare_rules.txt" />
+      <xs:field xpath="mstns:route_id" />
+    </xs:keyref>
+    <xs:keyref name="services_calendar_dates.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar_dates.txt" msprop:rel_Generator_ChildPropName="GetCalendarDates" msprop:rel_Generator_UserRelationName="services_calendar_dates.txt" msprop:rel_Generator_RelationVarName="relationservices_calendar_dates_txt" msprop:rel_Generator_UserParentTable="services" msprop:rel_Generator_ParentPropName="ServicesRow">
       <xs:selector xpath=".//mstns:calendar_dates.txt" />
       <xs:field xpath="mstns:service_id" />
     </xs:keyref>
-    <xs:keyref name="services_calendar.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar.txt" msprop:rel_Generator_ChildPropName="GetCalendar" msprop:rel_Generator_UserRelationName="services_calendar.txt" msprop:rel_Generator_ParentPropName="ServicesRow" msprop:rel_Generator_RelationVarName="relationservices_calendar_txt" msprop:rel_Generator_UserParentTable="services">
+    <xs:keyref name="services_calendar.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="calendar.txt" msprop:rel_Generator_ChildPropName="GetCalendar" msprop:rel_Generator_UserRelationName="services_calendar.txt" msprop:rel_Generator_RelationVarName="relationservices_calendar_txt" msprop:rel_Generator_UserParentTable="services" msprop:rel_Generator_ParentPropName="ServicesRow">
       <xs:selector xpath=".//mstns:calendar.txt" />
       <xs:field xpath="mstns:service_id" />
     </xs:keyref>
-    <xs:keyref name="trips_stop_times" refer="trips.txt_Constraint1" msprop:rel_Generator_UserChildTable="stop_times.txt" msprop:rel_Generator_ChildPropName="GetStopTimes" msprop:rel_Generator_UserRelationName="trips_stop_times" msprop:rel_Generator_RelationVarName="relationtrips_stop_times" msprop:rel_Generator_UserParentTable="trips.txt" msprop:rel_Generator_ParentPropName="TripsRow">
-      <xs:selector xpath=".//mstns:stop_times.txt" />
-      <xs:field xpath="mstns:trip_id" />
-    </xs:keyref>
-    <xs:keyref name="stops_stop_times" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="stop_times.txt" msprop:rel_Generator_ChildPropName="GetStopTimes" msprop:rel_Generator_UserRelationName="stops_stop_times" msprop:rel_Generator_RelationVarName="relationstops_stop_times" msprop:rel_Generator_UserParentTable="stops.txt" msprop:rel_Generator_ParentPropName="StopsRow">
+    <xs:keyref name="stops_stop_times" refer="stops.txt_Constraint1" msprop:rel_Generator_UserChildTable="stop_times.txt" msprop:rel_Generator_ChildPropName="GetStopTimes" msprop:rel_Generator_UserRelationName="stops_stop_times" msprop:rel_Generator_ParentPropName="StopsRow" msprop:rel_Generator_RelationVarName="relationstops_stop_times" msprop:rel_Generator_UserParentTable="stops.txt">
       <xs:selector xpath=".//mstns:stop_times.txt" />
       <xs:field xpath="mstns:stop_id" />
     </xs:keyref>
-    <xs:keyref name="services_trips.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="services_trips.txt" msprop:rel_Generator_RelationVarName="relationservices_trips_txt" msprop:rel_Generator_UserParentTable="services" msprop:rel_Generator_ParentPropName="ServicesRow">
-      <xs:selector xpath=".//mstns:trips.txt" />
-      <xs:field xpath="mstns:service_id" />
+    <xs:keyref name="trips_stop_times" refer="trips.txt_Constraint1" msprop:rel_Generator_UserChildTable="stop_times.txt" msprop:rel_Generator_ChildPropName="GetStopTimes" msprop:rel_Generator_UserRelationName="trips_stop_times" msprop:rel_Generator_ParentPropName="TripsRow" msprop:rel_Generator_RelationVarName="relationtrips_stop_times" msprop:rel_Generator_UserParentTable="trips.txt">
+      <xs:selector xpath=".//mstns:stop_times.txt" />
+      <xs:field xpath="mstns:trip_id" />
     </xs:keyref>
-    <xs:keyref name="routes_trips" refer="routes.txt_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="routes_trips" msprop:rel_Generator_RelationVarName="relationroutes_trips" msprop:rel_Generator_UserParentTable="routes.txt" msprop:rel_Generator_ParentPropName="RoutesRow">
+    <xs:keyref name="routes_trips" refer="routes.txt_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="routes_trips" msprop:rel_Generator_ParentPropName="RoutesRow" msprop:rel_Generator_RelationVarName="relationroutes_trips" msprop:rel_Generator_UserParentTable="routes.txt">
       <xs:selector xpath=".//mstns:trips.txt" />
       <xs:field xpath="mstns:route_id" />
     </xs:keyref>
-    <xs:keyref name="agency_routes" refer="Constraint1" msprop:rel_Generator_UserChildTable="routes.txt" msprop:rel_Generator_ChildPropName="GetRoutes" msprop:rel_Generator_UserRelationName="agency_routes" msprop:rel_Generator_RelationVarName="relationagency_routes" msprop:rel_Generator_UserParentTable="agency.txt" msprop:rel_Generator_ParentPropName="AgencyRow">
+    <xs:keyref name="services_trips.txt" refer="services_Constraint1" msprop:rel_Generator_UserChildTable="trips.txt" msprop:rel_Generator_ChildPropName="GetTrips" msprop:rel_Generator_UserRelationName="services_trips.txt" msprop:rel_Generator_ParentPropName="ServicesRow" msprop:rel_Generator_RelationVarName="relationservices_trips_txt" msprop:rel_Generator_UserParentTable="services">
+      <xs:selector xpath=".//mstns:trips.txt" />
+      <xs:field xpath="mstns:service_id" />
+    </xs:keyref>
+    <xs:keyref name="agency_routes" refer="Constraint1" msprop:rel_Generator_UserChildTable="routes.txt" msprop:rel_Generator_ChildPropName="GetRoutes" msprop:rel_Generator_UserRelationName="agency_routes" msprop:rel_Generator_ParentPropName="AgencyRow" msprop:rel_Generator_RelationVarName="relationagency_routes" msprop:rel_Generator_UserParentTable="agency.txt">
       <xs:selector xpath=".//mstns:routes.txt" />
       <xs:field xpath="mstns:agency_id" />
     </xs:keyref>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="stops_transfers_from" msdata:parent="stops.txt" msdata:child="transfers.txt" msdata:parentkey="stop_id" msdata:childkey="from_stop_id" msprop:Generator_UserChildTable="transfers.txt" msprop:Generator_ChildPropName="GetTransfersFrom" msprop:Generator_UserRelationName="stops_transfers_from" msprop:Generator_RelationVarName="relationstops_transfers_from" msprop:Generator_UserParentTable="stops.txt" msprop:Generator_ParentPropName="StopsRowByTransfersFrom" />
+      <msdata:Relationship name="stops_transfers_from" msdata:parent="stops.txt" msdata:child="transfers.txt" msdata:parentkey="stop_id" msdata:childkey="from_stop_id" msprop:Generator_UserChildTable="transfers.txt" msprop:Generator_ChildPropName="GetTransfersFrom" msprop:Generator_UserRelationName="stops_transfers_from" msprop:Generator_ParentPropName="StopsRowByTransfersFrom" msprop:Generator_RelationVarName="relationstops_transfers_from" msprop:Generator_UserParentTable="stops.txt" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
