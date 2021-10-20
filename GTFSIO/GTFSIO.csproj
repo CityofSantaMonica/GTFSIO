@@ -1,93 +1,49 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8806A02B-8598-4B17-BFB7-DADF09DA7B18}</ProjectGuid>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GTFSIO</RootNamespace>
-    <AssemblyName>GTFSIO</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Nuget|AnyCPU'">
     <OutputPath>bin\Nuget\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Extension.cs" />
-    <Compile Include="FeedFiles.cs" />
-    <Compile Include="GTFS.cs" />
-    <Compile Include="FeedTables.Designer.cs">
+    <Compile Update="FeedTables.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FeedTables.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FeedTables.xsc">
+    <None Update="FeedTables.xsc">
       <DependentUpon>FeedTables.xsd</DependentUpon>
     </None>
-    <None Include="FeedTables.xsd">
+    <None Update="FeedTables.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FeedTables.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="FeedTables.xss">
+    <None Update="FeedTables.xss">
       <DependentUpon>FeedTables.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Nuget'">
-    <Exec Command="echo Creating Nuget Package">
-    </Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy $(TargetDir)*.* .\lib\ /y">
-    </Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="nuget pack $(ProjectFileName) -Prop Configuration=Nuget;Platform=AnyCPU">
-    </Exec>
-    <Exec WorkingDirectory="$(ProjectDir)" Command="rd /S /Q .\lib">
-    </Exec>
-    <Exec Command="echo Finished Nuget Package creation">
-    </Exec>
+    <Exec Command="echo Creating Nuget Package"></Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="xcopy $(TargetDir)*.* .\lib\ /y"></Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="nuget pack $(ProjectFileName) -Prop Configuration=Nuget;Platform=AnyCPU"></Exec>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="rd /S /Q .\lib"></Exec>
+    <Exec Command="echo Finished Nuget Package creation"></Exec>
   </Target>
 </Project>
